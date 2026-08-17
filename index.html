@@ -1968,6 +1968,168 @@
     .vai-page-header-row { flex-wrap: wrap; gap: 12px; }
     .vai-card-summary-row { flex-direction: column; }
   }
+
+  /* ── May at a glance: full detail page (replaces the old stepper modal) ── */
+  .gd-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 24px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .gd-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 40px;
+    color: #141623;
+    margin: 0;
+  }
+  .gd-daterange {
+    display: flex;
+    align-items: center;
+    height: 44px;
+    flex-shrink: 0;
+  }
+  .gd-date-btn {
+    background: #F4F7FA;
+    border: none;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #37456C;
+    flex-shrink: 0;
+  }
+  .gd-date-btn:first-child { border-radius: 96px 0 0 96px; }
+  .gd-date-btn:last-child { border-radius: 0 96px 96px 0; }
+  .gd-date-label {
+    background: #F4F7FA;
+    border-left: 1px solid #9EB4D4;
+    border-right: 1px solid #9EB4D4;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    color: #0A091B;
+    white-space: nowrap;
+  }
+
+  .gd-summary-wrap { position: relative; margin-bottom: 32px; }
+  .gd-summary-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: radial-gradient(120% 160% at 0% 0%, #95beff 0%, #598eE6 25%, #1c5dcd 50%, #5d53c2 100%);
+    opacity: 0.5;
+    filter: blur(14px);
+    z-index: 0;
+  }
+  .gd-summary-card {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    border: 1px solid #95BEFF;
+    border-radius: 12px;
+    padding: 32px 24px;
+  }
+  .gd-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .gd-summary-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 36px;
+    color: #0A091B;
+    margin: 0;
+  }
+  .gd-feedback { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .gd-body-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    color: #0A091B;
+    margin: 0 0 8px 0;
+  }
+  .gd-footnote {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: #37456C;
+    margin: 0;
+  }
+  .gd-footnote a { color: #1C5DCD; font-weight: 500; text-decoration: underline; }
+
+  .gd-cards-stack { display: flex; flex-direction: column; gap: 32px; padding-bottom: 40px; }
+  .gd-main-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E9F3;
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .gd-main-card-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    color: #0A091B;
+    margin: 0;
+  }
+  .gd-main-card-body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    color: #37456C;
+    margin: 8px 0 24px 0;
+  }
+  .gd-tiles-row { display: flex; gap: 16px; }
+  .gd-tile {
+    flex: 1;
+    min-width: 0;
+    border-radius: 12px;
+    padding: 24px;
+    background: radial-gradient(140% 140% at 0% 0%, rgba(149,190,255,0.16) 0%, rgba(89,142,230,0.12) 30%, rgba(28,93,205,0.10) 55%, rgba(93,83,194,0.08) 100%), #FAFBFF;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .gd-tile-text { flex: 1; min-width: 0; }
+  .gd-tile-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    line-height: 24px;
+    color: #0A091B;
+    margin: 0 0 4px 0;
+  }
+  .gd-tile-body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    color: #0A091B;
+    margin: 0;
+  }
+  .gd-tile-actions { display: flex; gap: 8px; flex-shrink: 0; padding-top: 4px; }
+
+  @media (max-width: 700px) {
+    .gd-title { font-size: 28px; line-height: 36px; }
+    .gd-header-row { flex-wrap: wrap; gap: 12px; }
+    .gd-tiles-row { flex-direction: column; }
+  }
 </style>
 </head>
 <body>
@@ -2168,7 +2330,7 @@
             </defs>
           </svg>
           <p class="ai-summary-title">May at a glance</p>
-          <button class="ai-summary-view-btn" onclick="openAprilGlanceModal(event)">View summary</button>
+          <button class="ai-summary-view-btn" onclick="openGlanceDetail(event)">View summary</button>
           <button class="ai-summary-dismiss-btn" onclick="dismissAiSummaryBanner('ai-summary-banner')" aria-label="Dismiss">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
           </button>
@@ -4850,7 +5012,7 @@
               </defs>
             </svg>
             <p class="ai-summary-title">May at a glance</p>
-            <button class="ai-summary-view-btn" onclick="openAprilGlanceModal(event)">View summary</button>
+            <button class="ai-summary-view-btn" onclick="openGlanceDetail(event)">View summary</button>
           </div>
           <p class="ai-summary-desc">Net income reached $58,340, your strongest month since February. Sales growth outpaced rising costs, widening your margin by 1.8 points.</p>
           <p class="ai-summary-subtext">Reflects your closed accounting period, May 1–31, in <a href="#" onclick="return false;" style="color:#1C5DCD;text-decoration:underline;">QuickBooks</a></p>
@@ -5169,6 +5331,190 @@
         </div><!-- /.vai-layout -->
       </div><!-- /#panel-view-all-insights -->
 
+      <!-- ── May at a glance: full detail page ── -->
+      <div id="panel-glance-detail" style="display:none;">
+
+        <!-- Back button -->
+        <button class="vai-back-btn" onclick="closeGlanceDetail()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back
+        </button>
+
+        <div class="gd-header-row">
+          <h1 class="gd-title">May at a glance</h1>
+          <div class="gd-daterange">
+            <button class="gd-date-btn" type="button" aria-label="Previous period">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <span class="gd-date-label">May 1&ndash;31, 2026</span>
+            <button class="gd-date-btn" type="button" aria-label="Next period">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="gd-summary-wrap">
+          <div class="gd-summary-glow"></div>
+          <div class="gd-summary-card">
+            <div class="gd-card-header">
+              <p class="gd-summary-title">Net income reached $58,340</p>
+              <div class="gd-feedback">
+                <button class="thumb-btn" aria-label="Helpful">
+                  <svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <button class="thumb-btn" aria-label="Not helpful">
+                  <svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+            </div>
+            <p class="gd-body-text">This was your strongest month since February. Sales growth outpaced rising costs, widening your margin by 1.8 points.</p>
+            <p class="gd-footnote">Reflects your closed accounting period, May 1&ndash;31, in <a href="#" onclick="return false;">QuickBooks</a></p>
+          </div>
+        </div>
+
+        <div class="gd-cards-stack">
+
+          <!-- Guest count -->
+          <div class="gd-main-card">
+            <div class="gd-card-header">
+              <p class="gd-main-card-title">1,142 guests came through</p>
+              <div class="gd-feedback">
+                <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              </div>
+            </div>
+            <p class="gd-main-card-body">That's a bit lighter than April, mostly from quieter weekday lunches. The good news is your weekend crowd stayed steady.</p>
+            <div class="gd-tiles-row">
+              <div class="gd-tile">
+                <div class="gd-tile-text">
+                  <p class="gd-tile-title">Bring back weekday lunch traffic</p>
+                  <p class="gd-tile-body">Weekday lunch visits have declined for three weeks running. A midweek special could help recover that foot traffic.</p>
+                </div>
+                <div class="gd-tile-actions">
+                  <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                  <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                </div>
+              </div>
+              <div class="gd-tile">
+                <div class="gd-tile-text">
+                  <p class="gd-tile-title">Turn weekend traffic into repeat visits</p>
+                  <p class="gd-tile-body">Capturing contact info at checkout or promoting a loyalty offer could turn more visits into repeat business.</p>
+                </div>
+                <div class="gd-tile-actions">
+                  <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                  <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sales per labor hour -->
+          <div class="gd-main-card">
+            <div class="gd-card-header">
+              <p class="gd-main-card-title">Sales per labor hour dipped to $86</p>
+              <div class="gd-feedback">
+                <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              </div>
+            </div>
+            <p class="gd-main-card-body">Down from $92 in April, mostly from Tuesday and Wednesday lunch shifts running overstaffed relative to sales. Weekend dinner shifts stayed efficient.</p>
+            <div class="gd-tiles-row">
+              <div class="gd-tile">
+                <div class="gd-tile-text">
+                  <p class="gd-tile-title">Review Tue/Wed lunch scheduling</p>
+                  <p class="gd-tile-body">These shifts are running the most hours relative to sales this month. Trimming coverage slightly could bring efficiency back in line.</p>
+                </div>
+                <div class="gd-tile-actions">
+                  <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                  <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                </div>
+              </div>
+              <div class="gd-tile">
+                <div class="gd-tile-text">
+                  <p class="gd-tile-title">Use weekend dinner as the staffing benchmark</p>
+                  <p class="gd-tile-body">Friday and Saturday dinner posted your highest sales per labor hour. Matching that staff-to-sales ratio elsewhere could help close the gap.</p>
+                </div>
+                <div class="gd-tile-actions">
+                  <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                  <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Discounts -->
+          <div class="gd-main-card">
+            <div class="gd-card-header">
+              <p class="gd-main-card-title">Discounts totaled $2,150</p>
+              <div class="gd-feedback">
+                <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              </div>
+            </div>
+            <p class="gd-main-card-body">That's about 4% of gross sales, in line with your typical range for the month.</p>
+            <div class="gd-tiles-row">
+              <div class="gd-tile">
+                <div class="gd-tile-text">
+                  <p class="gd-tile-title">Review your most-used discount codes</p>
+                  <p class="gd-tile-body">A handful of comps and staff discounts made up most of this month's total. Check they're still being applied correctly.</p>
+                </div>
+                <div class="gd-tile-actions">
+                  <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                  <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                </div>
+              </div>
+              <div class="gd-tile">
+                <div class="gd-tile-text">
+                  <p class="gd-tile-title">Set an approval threshold for large discounts</p>
+                  <p class="gd-tile-body">A few discounts this month were larger than average. Requiring manager approval above a set amount can help keep discounting consistent.</p>
+                </div>
+                <div class="gd-tile-actions">
+                  <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                  <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Spend per guest -->
+          <div class="gd-main-card">
+            <div class="gd-card-header">
+              <p class="gd-main-card-title">Spend per guest rose to $28.40</p>
+              <div class="gd-feedback">
+                <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              </div>
+            </div>
+            <p class="gd-main-card-body">That's up $1.60 from April, driven mostly by higher cocktail and appetizer attach rates at dinner. Lunch spend per guest held about flat.</p>
+            <div class="gd-tiles-row">
+              <div class="gd-tile">
+                <div class="gd-tile-text">
+                  <p class="gd-tile-title">Feature higher-margin add-ons at checkout</p>
+                  <p class="gd-tile-body">Dinner guests are already trading up. Prompting an appetizer or dessert add-on at checkout could lift average ticket further.</p>
+                </div>
+                <div class="gd-tile-actions">
+                  <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                  <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                </div>
+              </div>
+              <div class="gd-tile">
+                <div class="gd-tile-text">
+                  <p class="gd-tile-title">Train staff on suggestive upselling at lunch</p>
+                  <p class="gd-tile-body">Lunch spend per guest hasn't moved in 3 months. A quick refresh on suggesting drinks or sides could help close the gap with dinner.</p>
+                </div>
+                <div class="gd-tile-actions">
+                  <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                  <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div><!-- /#panel-glance-detail -->
+
     </div>
   </main>
 </div>
@@ -5194,6 +5540,7 @@
     document.getElementById('panel-insight-detail').style.display = 'none';
     document.getElementById('panel-view-all-insights').style.display = 'none';
     document.getElementById('panel-manage-connections').style.display = 'none';
+    document.getElementById('panel-glance-detail').style.display = 'none';
     document.querySelector('.page-header').style.display = '';
   }
   document.getElementById('tab-last-week').addEventListener('click', () => showPanel('panel-last-week', 'tab-last-week'));
@@ -5206,6 +5553,7 @@
     document.getElementById('panel-sales').style.display = 'none';
     document.getElementById('panel-insight-detail').style.display = 'none';
     document.getElementById('panel-manage-connections').style.display = 'none';
+    document.getElementById('panel-glance-detail').style.display = 'none';
     document.getElementById('panel-view-all-insights').style.display = 'block';
     document.querySelector('.main').scrollTop = 0;
   }
@@ -5227,6 +5575,7 @@
     document.getElementById('panel-sales').style.display = 'none';
     document.getElementById('panel-insight-detail').style.display = 'none';
     document.getElementById('panel-view-all-insights').style.display = 'none';
+    document.getElementById('panel-glance-detail').style.display = 'none';
     document.getElementById('panel-manage-connections').style.display = 'block';
     document.querySelector('.main').scrollTop = 0;
   }
@@ -5235,6 +5584,37 @@
     document.querySelector('.page-header').style.display = '';
     var tabId = _mcOrigin === 'panel-sales' ? 'tab-sales' : 'tab-last-week';
     showPanel(_mcOrigin, tabId);
+    document.querySelector('.main').scrollTop = 0;
+  }
+
+  // ── May at a glance: full detail page navigation ──
+  var _gdOrigin = 'panel-last-week';
+  function openGlanceDetail(e) {
+    if (e) e.preventDefault();
+    if (document.getElementById('panel-view-all-insights').style.display !== 'none') {
+      _gdOrigin = 'panel-view-all-insights';
+    } else {
+      _gdOrigin = document.getElementById('panel-sales').style.display === 'none' ? 'panel-last-week' : 'panel-sales';
+    }
+    document.querySelector('.page-header').style.display = 'none';
+    document.getElementById('panel-last-week').style.display = 'none';
+    document.getElementById('panel-sales').style.display = 'none';
+    document.getElementById('panel-insight-detail').style.display = 'none';
+    document.getElementById('panel-manage-connections').style.display = 'none';
+    document.getElementById('panel-view-all-insights').style.display = 'none';
+    document.getElementById('panel-glance-detail').style.display = 'block';
+    document.querySelector('.main').scrollTop = 0;
+  }
+  function closeGlanceDetail() {
+    document.getElementById('panel-glance-detail').style.display = 'none';
+    if (_gdOrigin === 'panel-view-all-insights') {
+      document.querySelector('.page-header').style.display = 'none';
+      document.getElementById('panel-view-all-insights').style.display = 'block';
+    } else {
+      document.querySelector('.page-header').style.display = '';
+      var tabId = _gdOrigin === 'panel-sales' ? 'tab-sales' : 'tab-last-week';
+      showPanel(_gdOrigin, tabId);
+    }
     document.querySelector('.main').scrollTop = 0;
   }
 
