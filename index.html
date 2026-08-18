@@ -8829,20 +8829,18 @@ function openFeedbackModal(type, origin) {
     modalDown.style.display = 'flex';
     modalUp.style.display = 'none';
   }
-  // When opened from a full-page summary (the April at a glance summary modal, or the
-  // May at a glance historical detail page), don't stack on top of it — hide that page
-  // first and show a back arrow instead of relying on X/Skip to leave.
+  // When opened from a stacked modal-on-modal (the April at a glance stepper modal),
+  // don't stack two floating dialogs on top of each other — hide that modal first and
+  // show a back arrow instead of relying on X/Skip to leave. The May at a glance full
+  // page isn't a floating modal, so its thumbs just open this as a normal overlay on
+  // top of the still-visible page (no hide/restore needed).
   feedbackReturnsToSummary = origin === 'summary' || origin === true;
   feedbackReturnsToGlanceDetail = origin === 'glance-detail';
-  var showBack = feedbackReturnsToSummary || feedbackReturnsToGlanceDetail;
-  document.getElementById('fb-back-up').style.display = showBack ? 'flex' : 'none';
-  document.getElementById('fb-back-down').style.display = showBack ? 'flex' : 'none';
+  document.getElementById('fb-back-up').style.display = feedbackReturnsToSummary ? 'flex' : 'none';
+  document.getElementById('fb-back-down').style.display = feedbackReturnsToSummary ? 'flex' : 'none';
   if (feedbackReturnsToSummary) {
     document.getElementById('ai-summary-overlay').style.display = 'none';
     document.getElementById('ai-summary-modal-v2').style.display = 'none';
-  }
-  if (feedbackReturnsToGlanceDetail) {
-    document.getElementById('panel-glance-detail').style.display = 'none';
   }
   overlay.style.display = 'flex';
 }
@@ -8860,7 +8858,6 @@ function closeFeedbackModal() {
     document.getElementById('ai-summary-modal-v2').style.display = 'flex';
   } else if (feedbackReturnsToGlanceDetail) {
     feedbackReturnsToGlanceDetail = false;
-    document.getElementById('panel-glance-detail').style.display = 'block';
   }
 }
 function feedbackBackToSummary() {
