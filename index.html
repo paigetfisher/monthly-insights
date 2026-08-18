@@ -367,18 +367,22 @@
   .ai-summary-header {
     display: flex;
     align-items: flex-start;
+    flex-wrap: wrap;
+    row-gap: 8px;
     gap: 8px;
-    margin-bottom: 8px;
+    margin-bottom: 2px;
   }
   .ai-summary-header svg { flex-shrink: 0; margin-top: 1px; }
   .ai-summary-header .ai-summary-view-btn,
-  .ai-summary-header .ai-summary-dismiss-btn { margin-top: -2px; }
+  .ai-summary-header .ai-summary-dismiss-btn { margin-top: -2px; flex-shrink: 0; }
   .ai-summary-title {
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     font-weight: 600;
     color: #0A091B;
     flex: 1;
+    min-width: 160px;
+    white-space: nowrap;
     margin: 0;
   }
   .ai-summary-desc {
@@ -386,13 +390,13 @@
     font-size: 14px;
     color: #3B4A68;
     line-height: 20px;
-    margin: 0;
+    margin: 0 0 0 28px;
   }
   .ai-summary-subtext {
     font-family: 'Roboto', sans-serif;
     font-size: 12px;
     color: #8896AB;
-    margin: 8px 0 0;
+    margin: 8px 0 0 28px;
   }
   .ai-summary-view-btn {
     display: inline-flex;
@@ -1242,6 +1246,12 @@
     height: 100%;
     box-sizing: border-box;
   }
+  /* Total expenses is metric-only (no insight chip below it) — let it hug its own
+     content height instead of stretching to match a taller sibling card in the row. */
+  #accounting-metric-card {
+    align-self: start;
+    height: auto;
+  }
 
   /* Net sales card — full width with chart */
   .net-sales-inner {
@@ -2080,6 +2090,21 @@
     border-radius: 12px;
     padding: 24px;
   }
+  /* Larger breakpoints: headline+desc in a fixed-width left column, recommended actions to the right */
+  .gd-card-columns {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+  }
+  .gd-card-left { flex: 0 0 360px; max-width: 360px; }
+  .gd-card-right { flex: 1; min-width: 0; }
+  .gd-rec-label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #0A091B;
+    margin: 0 0 12px 0;
+  }
   .gd-main-card-title {
     font-family: 'Poppins', sans-serif;
     font-size: 24px;
@@ -2093,7 +2118,7 @@
     font-size: 16px;
     line-height: 24px;
     color: #37456C;
-    margin: 8px 0 24px 0;
+    margin: 8px 0 0 0;
   }
   .gd-tiles-row { display: flex; gap: 16px; }
   .gd-tile {
@@ -2125,6 +2150,12 @@
   }
   .gd-tile-actions { display: flex; gap: 8px; flex-shrink: 0; padding-top: 4px; }
 
+  /* Medium breakpoints and below: stack headline above recommended actions, tiles wrap to a column */
+  @media (max-width: 1100px) {
+    .gd-card-columns { flex-direction: column; gap: 24px; }
+    .gd-card-left { flex: 0 0 auto; max-width: none; }
+    .gd-main-card-body { margin-bottom: 0; }
+  }
   @media (max-width: 700px) {
     .gd-title { font-size: 28px; line-height: 36px; }
     .gd-header-row { flex-wrap: wrap; gap: 12px; }
@@ -2336,7 +2367,7 @@
           </button>
         </div>
         <p class="ai-summary-desc">Net income reached $58,340, your strongest month since February. Sales growth outpaced rising costs, widening your margin by 1.8 points.</p>
-        <p class="ai-summary-subtext">Reflects your closed accounting period, May 1–31, in <a href="#" onclick="return false;" style="color:#1C5DCD;text-decoration:underline;">QuickBooks</a></p>
+        <p class="ai-summary-subtext">Reflects your closed accounting period, May 1–31, in <a href="#" onclick="openManageConnectionModal('accounting'); return false;" style="color:#1C5DCD;text-decoration:underline;">QuickBooks</a></p>
       </div>
 
       <!-- Promo banner: get more from your weekly insights (hidden — replaced by the AI summary banner above) -->
@@ -2653,7 +2684,7 @@
         <!-- Hourly labor cost % — empty state until labor software is connected -->
         <div class="metric-card" id="labor-metric-card">
           <!-- Not-connected state -->
-          <div id="labor-metric-empty" class="metric-empty-wrap">
+          <div id="labor-metric-empty" class="metric-empty-wrap" style="display:none;">
             <div class="metric-card-header">
               <span style="display:inline-flex;align-items:center;gap:4px;">
                 <span class="metric-label">Sales per labor hour</span>
@@ -2670,8 +2701,8 @@
             <p class="metric-empty-desc">Connect your labor software to add overtime, scheduling, and cost insights to your weekly insights.</p>
           </div>
 
-          <!-- Connected state -->
-          <div id="labor-metric-connected" style="display:none;flex-direction:column;flex:1;">
+          <!-- Connected state (default) -->
+          <div id="labor-metric-connected" style="display:flex;flex-direction:column;flex:1;">
             <div class="metric-card-header">
               <span style="display:inline-flex;align-items:center;gap:4px;">
                 <span class="metric-label" id="labor-metric-label">Sales per labor hour</span>
@@ -2706,7 +2737,7 @@
         <!-- Accounting — empty state until accounting software is connected -->
         <div class="metric-card" id="accounting-metric-card">
           <!-- Not-connected state -->
-          <div id="accounting-metric-empty" class="metric-empty-wrap">
+          <div id="accounting-metric-empty" class="metric-empty-wrap" style="display:none;">
             <div class="metric-card-header">
               <span class="metric-label">Total expenses</span>
               <button class="metric-add-btn" onclick="openAccountingModal()">
@@ -2718,8 +2749,8 @@
             <p class="metric-empty-desc">Connect your accounting software to include your profit and loss expenses in your weekly insights.</p>
           </div>
 
-          <!-- Connected state -->
-          <div id="accounting-metric-connected" style="display:none;flex-direction:column;flex:1;">
+          <!-- Connected state (default) -->
+          <div id="accounting-metric-connected" style="display:flex;flex-direction:column;flex:1;">
             <div class="metric-card-header">
               <span class="metric-label" id="accounting-metric-label">Total expenses</span>
               <span class="metric-source">Source: <a class="teamwork-link" id="accounting-metric-source" onclick="openManageConnectionModal('accounting')">QuickBooks Online</a></span>
@@ -2732,24 +2763,13 @@
               </span>
               <span class="metric-vs">vs. 3-wk avg</span>
             </div>
-            <div class="insight-chip positive" id="accounting-metric-insight">
-              <div class="insight-chip-header">
-                <span class="insight-chip-title" id="accounting-metric-insight-title">Net income up for the third straight week</span>
-                <div class="insight-chip-actions">
-                  <button class="thumb-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.25 11.2501H6C5.5915 11.2501 5.25 11.5916 5.25 12.0001V17.2501C5.25 17.6586 5.5915 18.0001 6 18.0001H7.5C7.9085 18.0001 8.25 17.6586 8.25 17.2501V15.7501M8.25 11.2501V15.7501M8.25 11.2501C10.4236 11.2501 11.25 9.34829 11.25 7.50008C11.25 5.54022 14.25 5.65327 14.25 7.50008V11.2501H16.5C17.317 11.2501 18 11.9331 18 12.7501L17.25 16.5001C17.0876 17.1928 16.5783 18.0705 15.75 18.0001H10.5C9.2745 18.0001 8.25 16.9756 8.25 15.7501" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                  <button class="thumb-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.25 12.7536H6C5.80109 12.7536 5.61032 12.6746 5.46967 12.5339C5.32902 12.3933 5.25 12.2025 5.25 12.0036V6.75361C5.25 6.5547 5.32902 6.36393 5.46967 6.22328C5.61032 6.08263 5.80109 6.00361 6 6.00361H7.5C7.69891 6.00361 7.88968 6.08263 8.03033 6.22328C8.17098 6.36393 8.25 6.5547 8.25 6.75361V8.25361M8.25 12.7536C9.04565 12.7536 9.80871 13.0697 10.3713 13.6323C10.9339 14.1949 11.25 14.958 11.25 15.7536V16.5036C11.25 16.9014 11.408 17.283 11.6893 17.5643C11.9706 17.8456 12.3522 18.0036 12.75 18.0036C13.1478 18.0036 13.5294 17.8456 13.8107 17.5643C14.092 17.283 14.25 16.9014 14.25 16.5036V12.7536H16.5C16.8978 12.7536 17.2794 12.5956 17.5607 12.3143C17.842 12.033 18 11.6514 18 11.2536L17.25 7.50361C17.1421 7.04351 16.9375 6.64843 16.667 6.37789C16.3964 6.10735 16.0746 5.97599 15.75 6.00361H10.5C9.90326 6.00361 9.33097 6.24066 8.90901 6.66262C8.48705 7.08458 8.25 7.65687 8.25 8.25361M8.25 12.7536V8.25361" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                </div>
-              </div>
-              <p class="insight-chip-body" id="accounting-metric-insight-body">Higher margins on weekend dinner covers pushed net income up 5.4% versus your 3-week average.</p>
-              <a class="view-details" onclick="openInsightDetail('positive')" style="cursor:pointer;">View details</a>
-            </div>
           </div>
         </div>
 
       </div>
 
       <!-- Powered by branding -->
-      <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin:8px 0 24px;font-family:'Roboto',sans-serif;font-size:13px;color:#8896AB;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin:32px 0 24px;font-family:'Roboto',sans-serif;font-size:13px;color:#8896AB;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M10 5.99844C10.4304 5.99844 10.8126 6.27387 10.9487 6.68221L12.4156 11.0829L16.8162 12.5498C17.2246 12.6859 17.5 13.068 17.5 13.4984C17.5 13.9289 17.2246 14.311 16.8162 14.4471L12.4156 15.914L10.9487 20.3147C10.8126 20.723 10.4304 20.9984 10 20.9984C9.56957 20.9984 9.18743 20.723 9.05132 20.3147L7.58443 15.914L3.18377 14.4471C2.77543 14.311 2.5 13.9289 2.5 13.4984C2.5 13.068 2.77543 12.6859 3.18377 12.5498L7.58443 11.0829L9.05132 6.68221C9.18743 6.27387 9.56957 5.99844 10 5.99844Z" fill="url(#sparkle-grad1-brand-lw)"/>
           <path fill-rule="evenodd" clip-rule="evenodd" d="M18 2.39844C18.2583 2.39844 18.4875 2.5637 18.5692 2.8087L19.3493 5.1491L21.6897 5.92923C21.9347 6.0109 22.1 6.24018 22.1 6.49844C22.1 6.7567 21.9347 6.98598 21.6897 7.06765L19.3493 7.84778L18.5692 10.1882C18.4875 10.4332 18.2583 10.5984 18 10.5984C17.7417 10.5984 17.5125 10.4332 17.4308 10.1882L16.6507 7.84778L14.3103 7.06765C14.0653 6.98598 13.9 6.7567 13.9 6.49844C13.9 6.24018 14.0653 6.0109 14.3103 5.92923L16.6507 5.1491L17.4308 2.8087C17.5125 2.5637 17.7417 2.39844 18 2.39844Z" fill="url(#sparkle-grad2-brand-lw)"/>
@@ -3339,7 +3359,7 @@
         </div>
 
         <!-- Powered by branding -->
-        <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin:8px 0 24px;font-family:'Roboto',sans-serif;font-size:13px;color:#8896AB;">
+        <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin:32px 0 24px;font-family:'Roboto',sans-serif;font-size:13px;color:#8896AB;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M10 5.99844C10.4304 5.99844 10.8126 6.27387 10.9487 6.68221L12.4156 11.0829L16.8162 12.5498C17.2246 12.6859 17.5 13.068 17.5 13.4984C17.5 13.9289 17.2246 14.311 16.8162 14.4471L12.4156 15.914L10.9487 20.3147C10.8126 20.723 10.4304 20.9984 10 20.9984C9.56957 20.9984 9.18743 20.723 9.05132 20.3147L7.58443 15.914L3.18377 14.4471C2.77543 14.311 2.5 13.9289 2.5 13.4984C2.5 13.068 2.77543 12.6859 3.18377 12.5498L7.58443 11.0829L9.05132 6.68221C9.18743 6.27387 9.56957 5.99844 10 5.99844Z" fill="url(#sparkle-grad1-brand-sales)"/>
             <path fill-rule="evenodd" clip-rule="evenodd" d="M18 2.39844C18.2583 2.39844 18.4875 2.5637 18.5692 2.8087L19.3493 5.1491L21.6897 5.92923C21.9347 6.0109 22.1 6.24018 22.1 6.49844C22.1 6.7567 21.9347 6.98598 21.6897 7.06765L19.3493 7.84778L18.5692 10.1882C18.4875 10.4332 18.2583 10.5984 18 10.5984C17.7417 10.5984 17.5125 10.4332 17.4308 10.1882L16.6507 7.84778L14.3103 7.06765C14.0653 6.98598 13.9 6.7567 13.9 6.49844C13.9 6.24018 14.0653 6.0109 14.3103 5.92923L16.6507 5.1491L17.4308 2.8087C17.5125 2.5637 17.7417 2.39844 18 2.39844Z" fill="url(#sparkle-grad2-brand-sales)"/>
@@ -4992,8 +5012,22 @@
           Back
         </button>
 
+        <!-- Page title -->
+        <div class="vai-page-header-row" style="margin-top:24px;">
+          <h1 class="vai-page-title">Your insights</h1>
+          <div class="gd-daterange">
+            <button class="gd-date-btn" type="button" aria-label="Previous 4 weeks" onclick="return false;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <span class="gd-date-label">May 18 &ndash; Jun 14, 2026</span>
+            <button class="gd-date-btn" type="button" aria-label="Next 4 weeks" onclick="return false;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+
         <!-- Summary banner -->
-        <div class="ai-summary-banner" id="vai-ai-summary-banner" style="margin-top:20px;">
+        <div class="ai-summary-banner" id="vai-ai-summary-banner" style="margin-top:24px;">
           <div class="ai-summary-header">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M10 5.99844C10.4304 5.99844 10.8126 6.27387 10.9487 6.68221L12.4156 11.0829L16.8162 12.5498C17.2246 12.6859 17.5 13.068 17.5 13.4984C17.5 13.9289 17.2246 14.311 16.8162 14.4471L12.4156 15.914L10.9487 20.3147C10.8126 20.723 10.4304 20.9984 10 20.9984C9.56957 20.9984 9.18743 20.723 9.05132 20.3147L7.58443 15.914L3.18377 14.4471C2.77543 14.311 2.5 13.9289 2.5 13.4984C2.5 13.068 2.77543 12.6859 3.18377 12.5498L7.58443 11.0829L9.05132 6.68221C9.18743 6.27387 9.56957 5.99844 10 5.99844Z" fill="url(#sparkle-grad1-vai)"/>
@@ -5015,21 +5049,7 @@
             <button class="ai-summary-view-btn" onclick="openGlanceDetail(event)">View summary</button>
           </div>
           <p class="ai-summary-desc">Net income reached $58,340, your strongest month since February. Sales growth outpaced rising costs, widening your margin by 1.8 points.</p>
-          <p class="ai-summary-subtext">Reflects your closed accounting period, May 1–31, in <a href="#" onclick="return false;" style="color:#1C5DCD;text-decoration:underline;">QuickBooks</a></p>
-        </div>
-
-        <!-- Page title + date nav -->
-        <div class="vai-page-header-row" style="margin-top:40px;">
-          <h1 class="vai-page-title">Your insights</h1>
-          <div class="vai-date-nav">
-            <button class="vai-date-nav-btn" aria-label="Previous month">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <span class="vai-date-range">May 18 – Jun 14, 2026</span>
-            <button class="vai-date-nav-btn" aria-label="Next month">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-          </div>
+          <p class="ai-summary-subtext">Reflects your closed accounting period, May 1–31, in <a href="#" onclick="openManageConnectionModal('accounting'); return false;" style="color:#1C5DCD;text-decoration:underline;">QuickBooks</a></p>
         </div>
 
         <!-- Weekly insight cards -->
@@ -5361,16 +5381,16 @@
             <div class="gd-card-header">
               <p class="gd-summary-title">Net income reached $58,340</p>
               <div class="gd-feedback">
-                <button class="thumb-btn" aria-label="Helpful">
+                <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')">
                   <svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
-                <button class="thumb-btn" aria-label="Not helpful">
+                <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')">
                   <svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
               </div>
             </div>
             <p class="gd-body-text">This was your strongest month since February. Sales growth outpaced rising costs, widening your margin by 1.8 points.</p>
-            <p class="gd-footnote">Reflects your closed accounting period, May 1&ndash;31, in <a href="#" onclick="return false;">QuickBooks</a></p>
+            <p class="gd-footnote">Reflects your closed accounting period, May 1&ndash;31, in <a href="#" onclick="openManageConnectionModal('accounting'); return false;">QuickBooks</a></p>
           </div>
         </div>
 
@@ -5378,33 +5398,40 @@
 
           <!-- Guest count -->
           <div class="gd-main-card">
-            <div class="gd-card-header">
-              <p class="gd-main-card-title">1,142 guests came through</p>
-              <div class="gd-feedback">
-                <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="gd-card-columns">
+              <div class="gd-card-left">
+                <div class="gd-card-header">
+                  <p class="gd-main-card-title">1,142 guests came through</p>
+                  <div class="gd-feedback">
+                    <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                    <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                  </div>
+                </div>
+                <p class="gd-main-card-body">That's a bit lighter than April, mostly from quieter weekday lunches. The good news is your weekend crowd stayed steady.</p>
               </div>
-            </div>
-            <p class="gd-main-card-body">That's a bit lighter than April, mostly from quieter weekday lunches. The good news is your weekend crowd stayed steady.</p>
-            <div class="gd-tiles-row">
-              <div class="gd-tile">
-                <div class="gd-tile-text">
-                  <p class="gd-tile-title">Bring back weekday lunch traffic</p>
-                  <p class="gd-tile-body">Weekday lunch visits have declined for three weeks running. A midweek special could help recover that foot traffic.</p>
-                </div>
-                <div class="gd-tile-actions">
-                  <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                  <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                </div>
-              </div>
-              <div class="gd-tile">
-                <div class="gd-tile-text">
-                  <p class="gd-tile-title">Turn weekend traffic into repeat visits</p>
-                  <p class="gd-tile-body">Capturing contact info at checkout or promoting a loyalty offer could turn more visits into repeat business.</p>
-                </div>
-                <div class="gd-tile-actions">
-                  <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                  <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="gd-card-right">
+                <p class="gd-rec-label">Recommended actions</p>
+                <div class="gd-tiles-row">
+                  <div class="gd-tile">
+                    <div class="gd-tile-text">
+                      <p class="gd-tile-title">Bring back weekday lunch traffic</p>
+                      <p class="gd-tile-body">Weekday lunch visits have declined for three weeks running. A midweek special could help recover that foot traffic.</p>
+                    </div>
+                    <div class="gd-tile-actions">
+                      <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                      <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                    </div>
+                  </div>
+                  <div class="gd-tile">
+                    <div class="gd-tile-text">
+                      <p class="gd-tile-title">Turn weekend traffic into repeat visits</p>
+                      <p class="gd-tile-body">Capturing contact info at checkout or promoting a loyalty offer could turn more visits into repeat business.</p>
+                    </div>
+                    <div class="gd-tile-actions">
+                      <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                      <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -5412,33 +5439,40 @@
 
           <!-- Sales per labor hour -->
           <div class="gd-main-card">
-            <div class="gd-card-header">
-              <p class="gd-main-card-title">Sales per labor hour dipped to $86</p>
-              <div class="gd-feedback">
-                <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="gd-card-columns">
+              <div class="gd-card-left">
+                <div class="gd-card-header">
+                  <p class="gd-main-card-title">Sales per labor hour dipped to $86</p>
+                  <div class="gd-feedback">
+                    <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                    <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                  </div>
+                </div>
+                <p class="gd-main-card-body">Down from $92 in April, mostly from Tuesday and Wednesday lunch shifts running overstaffed relative to sales. Weekend dinner shifts stayed efficient.</p>
               </div>
-            </div>
-            <p class="gd-main-card-body">Down from $92 in April, mostly from Tuesday and Wednesday lunch shifts running overstaffed relative to sales. Weekend dinner shifts stayed efficient.</p>
-            <div class="gd-tiles-row">
-              <div class="gd-tile">
-                <div class="gd-tile-text">
-                  <p class="gd-tile-title">Review Tue/Wed lunch scheduling</p>
-                  <p class="gd-tile-body">These shifts are running the most hours relative to sales this month. Trimming coverage slightly could bring efficiency back in line.</p>
-                </div>
-                <div class="gd-tile-actions">
-                  <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                  <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                </div>
-              </div>
-              <div class="gd-tile">
-                <div class="gd-tile-text">
-                  <p class="gd-tile-title">Use weekend dinner as the staffing benchmark</p>
-                  <p class="gd-tile-body">Friday and Saturday dinner posted your highest sales per labor hour. Matching that staff-to-sales ratio elsewhere could help close the gap.</p>
-                </div>
-                <div class="gd-tile-actions">
-                  <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                  <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="gd-card-right">
+                <p class="gd-rec-label">Recommended actions</p>
+                <div class="gd-tiles-row">
+                  <div class="gd-tile">
+                    <div class="gd-tile-text">
+                      <p class="gd-tile-title">Review Tue/Wed lunch scheduling</p>
+                      <p class="gd-tile-body">These shifts are running the most hours relative to sales this month. Trimming coverage slightly could bring efficiency back in line.</p>
+                    </div>
+                    <div class="gd-tile-actions">
+                      <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                      <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                    </div>
+                  </div>
+                  <div class="gd-tile">
+                    <div class="gd-tile-text">
+                      <p class="gd-tile-title">Use weekend dinner as the staffing benchmark</p>
+                      <p class="gd-tile-body">Friday and Saturday dinner posted your highest sales per labor hour. Matching that staff-to-sales ratio elsewhere could help close the gap.</p>
+                    </div>
+                    <div class="gd-tile-actions">
+                      <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                      <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -5446,33 +5480,40 @@
 
           <!-- Discounts -->
           <div class="gd-main-card">
-            <div class="gd-card-header">
-              <p class="gd-main-card-title">Discounts totaled $2,150</p>
-              <div class="gd-feedback">
-                <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="gd-card-columns">
+              <div class="gd-card-left">
+                <div class="gd-card-header">
+                  <p class="gd-main-card-title">Discounts totaled $2,150</p>
+                  <div class="gd-feedback">
+                    <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                    <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                  </div>
+                </div>
+                <p class="gd-main-card-body">That's about 4% of gross sales, in line with your typical range for the month.</p>
               </div>
-            </div>
-            <p class="gd-main-card-body">That's about 4% of gross sales, in line with your typical range for the month.</p>
-            <div class="gd-tiles-row">
-              <div class="gd-tile">
-                <div class="gd-tile-text">
-                  <p class="gd-tile-title">Review your most-used discount codes</p>
-                  <p class="gd-tile-body">A handful of comps and staff discounts made up most of this month's total. Check they're still being applied correctly.</p>
-                </div>
-                <div class="gd-tile-actions">
-                  <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                  <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                </div>
-              </div>
-              <div class="gd-tile">
-                <div class="gd-tile-text">
-                  <p class="gd-tile-title">Set an approval threshold for large discounts</p>
-                  <p class="gd-tile-body">A few discounts this month were larger than average. Requiring manager approval above a set amount can help keep discounting consistent.</p>
-                </div>
-                <div class="gd-tile-actions">
-                  <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                  <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="gd-card-right">
+                <p class="gd-rec-label">Recommended actions</p>
+                <div class="gd-tiles-row">
+                  <div class="gd-tile">
+                    <div class="gd-tile-text">
+                      <p class="gd-tile-title">Review your most-used discount codes</p>
+                      <p class="gd-tile-body">A handful of comps and staff discounts made up most of this month's total. Check they're still being applied correctly.</p>
+                    </div>
+                    <div class="gd-tile-actions">
+                      <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                      <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                    </div>
+                  </div>
+                  <div class="gd-tile">
+                    <div class="gd-tile-text">
+                      <p class="gd-tile-title">Set an approval threshold for large discounts</p>
+                      <p class="gd-tile-body">A few discounts this month were larger than average. Requiring manager approval above a set amount can help keep discounting consistent.</p>
+                    </div>
+                    <div class="gd-tile-actions">
+                      <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                      <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -5480,33 +5521,40 @@
 
           <!-- Spend per guest -->
           <div class="gd-main-card">
-            <div class="gd-card-header">
-              <p class="gd-main-card-title">Spend per guest rose to $28.40</p>
-              <div class="gd-feedback">
-                <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="gd-card-columns">
+              <div class="gd-card-left">
+                <div class="gd-card-header">
+                  <p class="gd-main-card-title">Spend per guest rose to $28.40</p>
+                  <div class="gd-feedback">
+                    <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                    <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                  </div>
+                </div>
+                <p class="gd-main-card-body">That's up $1.60 from April, driven mostly by higher cocktail and appetizer attach rates at dinner. Lunch spend per guest held about flat.</p>
               </div>
-            </div>
-            <p class="gd-main-card-body">That's up $1.60 from April, driven mostly by higher cocktail and appetizer attach rates at dinner. Lunch spend per guest held about flat.</p>
-            <div class="gd-tiles-row">
-              <div class="gd-tile">
-                <div class="gd-tile-text">
-                  <p class="gd-tile-title">Feature higher-margin add-ons at checkout</p>
-                  <p class="gd-tile-body">Dinner guests are already trading up. Prompting an appetizer or dessert add-on at checkout could lift average ticket further.</p>
-                </div>
-                <div class="gd-tile-actions">
-                  <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                  <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                </div>
-              </div>
-              <div class="gd-tile">
-                <div class="gd-tile-text">
-                  <p class="gd-tile-title">Train staff on suggestive upselling at lunch</p>
-                  <p class="gd-tile-body">Lunch spend per guest hasn't moved in 3 months. A quick refresh on suggesting drinks or sides could help close the gap with dinner.</p>
-                </div>
-                <div class="gd-tile-actions">
-                  <button class="thumb-btn" aria-label="Helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                  <button class="thumb-btn" aria-label="Not helpful"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="gd-card-right">
+                <p class="gd-rec-label">Recommended actions</p>
+                <div class="gd-tiles-row">
+                  <div class="gd-tile">
+                    <div class="gd-tile-text">
+                      <p class="gd-tile-title">Feature higher-margin add-ons at checkout</p>
+                      <p class="gd-tile-body">Dinner guests are already trading up. Prompting an appetizer or dessert add-on at checkout could lift average ticket further.</p>
+                    </div>
+                    <div class="gd-tile-actions">
+                      <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                      <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                    </div>
+                  </div>
+                  <div class="gd-tile">
+                    <div class="gd-tile-text">
+                      <p class="gd-tile-title">Train staff on suggestive upselling at lunch</p>
+                      <p class="gd-tile-body">Lunch spend per guest hasn't moved in 3 months. A quick refresh on suggesting drinks or sides could help close the gap with dinner.</p>
+                    </div>
+                    <div class="gd-tile-actions">
+                      <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                      <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -7064,7 +7112,7 @@
       btn.style.cursor = 'default';
     }
   }
-  var _connectedLaborSoftware = null;
+  var _connectedLaborSoftware = 'Teamwork';
 
   // Dashboard "Hourly labor cost %" card content per KPI, keyed by the labor-kpi value
   var laborKpiUpArrow = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 19V5M5 12L12 5L19 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -7297,7 +7345,7 @@
 
   // ── Connect your accounting software modal ──
   var accountingSoftwareLabels = { 'quickbooks': 'QuickBooks Online', 'restaurant365': 'Restaurant365', 'xero': 'Xero', 'other': 'Your accounting software' };
-  var _connectedAccountingSoftware = null;
+  var _connectedAccountingSoftware = 'QuickBooks Online';
   var _accountingConfigState = { periods: false, multiloc: false };
 
   function _updateConnectAccountingBtn() {
@@ -7374,12 +7422,7 @@
 
     var deltaEl = document.getElementById('accounting-metric-delta');
     deltaEl.className = 'metric-delta' + (data.deltaClass ? ' ' + data.deltaClass : '');
-
-    var insightEl = document.getElementById('accounting-metric-insight');
-    insightEl.className = 'insight-chip ' + data.insightClass;
-    document.getElementById('accounting-metric-insight-title').textContent = data.insightTitle;
-    document.getElementById('accounting-metric-insight-body').textContent = data.insightBody;
-    document.querySelector('#accounting-metric-insight .view-details').setAttribute('onclick', "openInsightDetail('" + data.insightType + "')");
+    // Total expenses is metric-only — no insight chip, and the card itself isn't clickable.
   }
 
   function openAccountingModal(e, preselect) {
@@ -7870,32 +7913,13 @@
       disconnect: function() { disconnectLaborSoftware(); }
     },
     accounting: {
-      subtitleTemplate: function(software) { return software + ' provides financial data like net income, cash flow, and prime cost % for your weekly insights.'; },
+      subtitleTemplate: function(software) { return 'Your weekly insights use ' + software + ' data to flag rising costs before they cut into your margin.'; },
       excludeDetail: 'power your accounting insights. Removing it may reduce visibility into net income, cash flow, and prime cost %.',
       showToast: function(message) { showAccountingToast(message); },
-      extraSection: {
-        header: 'Tell us how your accounting system is configured.',
-        options: [
-          {
-            id: 'manage-accounting-periods',
-            label: 'Use accounting periods',
-            getChecked: function() { return _accountingConfigState.periods; },
-            onChange: function(checked) { _accountingConfigState.periods = checked; }
-          },
-          {
-            id: 'manage-accounting-multiloc',
-            label: 'I manage multiple locations in my accounting system',
-            getChecked: function() { return _accountingConfigState.multiloc; },
-            onChange: function(checked) { _accountingConfigState.multiloc = checked; }
-          }
-        ]
+      staticChecklist: {
+        header: "What's included:",
+        items: ['Cost trends over time', 'Margin by category', 'Vendor spend patterns']
       },
-      kpiHeader: 'Choose one accounting KPI that matters most to your business.',
-      kpiOptions: [
-        { value: 'net-income', label: 'Net income' },
-        { value: 'cash-flow', label: 'Cash flow' },
-        { value: 'prime-cost', label: 'Prime cost %' }
-      ],
       getSoftware: function() { return _connectedAccountingSoftware; },
       getCurrentKpi: function() {
         var r = document.querySelector('input[name="mc-accounting-kpi-inline"]:checked');
@@ -7983,24 +8007,40 @@
       document.getElementById('manage-connection-extra-options').innerHTML = '';
     }
 
-    document.getElementById('manage-connection-kpi-header').textContent = cfg.kpiHeader;
+    var saveBtn = document.getElementById('manage-connection-save-btn');
 
-    var currentKpi = cfg.getCurrentKpi();
-    var optionsHtml = cfg.kpiOptions.map(function(opt) {
-      var checked = opt.value === currentKpi ? 'checked' : '';
-      return '<label style="display:flex;align-items:center;gap:8px;padding:12px 0;cursor:pointer;">' +
-        '<input type="radio" name="manage-connection-kpi" value="' + opt.value + '" ' + checked + ' style="width:20px;height:20px;accent-color:#1063F9;cursor:pointer;flex-shrink:0;">' +
-        '<span style="font-size:16px;color:#141623;font-family:\'Roboto\',sans-serif;">' + opt.label + '</span>' +
-        '</label>';
-    }).join('');
-    document.getElementById('manage-connection-kpi-options').innerHTML = optionsHtml;
+    if (cfg.staticChecklist) {
+      // Static informational checklist (e.g. QuickBooks "What's included") — no KPI to choose or save
+      document.getElementById('manage-connection-kpi-header').textContent = cfg.staticChecklist.header;
+      var checklistHtml = cfg.staticChecklist.items.map(function(item) {
+        return '<div style="display:flex;align-items:center;gap:8px;padding:12px 0;">' +
+          '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0A091B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="9" stroke="#DDE3EA"/><path d="m8 12 3 3 5-6"/></svg>' +
+          '<span style="font-size:16px;color:#141623;font-family:\'Roboto\',sans-serif;">' + item + '</span>' +
+          '</div>';
+      }).join('');
+      document.getElementById('manage-connection-kpi-options').innerHTML = checklistHtml;
+      saveBtn.style.display = 'none';
+    } else {
+      document.getElementById('manage-connection-kpi-header').textContent = cfg.kpiHeader;
 
-    // Save stays disabled until the selected KPI differs from the one it opened with
-    _manageConnectionInitialKpi = currentKpi;
-    _updateManageConnectionSaveBtn();
-    document.querySelectorAll('input[name="manage-connection-kpi"]').forEach(function(r) {
-      r.addEventListener('change', _updateManageConnectionSaveBtn);
-    });
+      var currentKpi = cfg.getCurrentKpi();
+      var optionsHtml = cfg.kpiOptions.map(function(opt) {
+        var checked = opt.value === currentKpi ? 'checked' : '';
+        return '<label style="display:flex;align-items:center;gap:8px;padding:12px 0;cursor:pointer;">' +
+          '<input type="radio" name="manage-connection-kpi" value="' + opt.value + '" ' + checked + ' style="width:20px;height:20px;accent-color:#1063F9;cursor:pointer;flex-shrink:0;">' +
+          '<span style="font-size:16px;color:#141623;font-family:\'Roboto\',sans-serif;">' + opt.label + '</span>' +
+          '</label>';
+      }).join('');
+      document.getElementById('manage-connection-kpi-options').innerHTML = optionsHtml;
+
+      // Save stays disabled until the selected KPI differs from the one it opened with
+      _manageConnectionInitialKpi = currentKpi;
+      saveBtn.style.display = 'flex';
+      _updateManageConnectionSaveBtn();
+      document.querySelectorAll('input[name="manage-connection-kpi"]').forEach(function(r) {
+        r.addEventListener('change', _updateManageConnectionSaveBtn);
+      });
+    }
 
     document.getElementById('manage-connection-overlay').style.display = 'block';
     document.getElementById('manage-connection-modal').style.display = 'block';
@@ -8768,7 +8808,8 @@
 
 <script>
 var feedbackReturnsToSummary = false;
-function openFeedbackModal(type, fromSummary) {
+var feedbackReturnsToGlanceDetail = false;
+function openFeedbackModal(type, origin) {
   var overlay = document.getElementById('feedback-modal-overlay');
   var modalUp = document.getElementById('modal-up');
   var modalDown = document.getElementById('modal-down');
@@ -8788,19 +8829,28 @@ function openFeedbackModal(type, fromSummary) {
     modalDown.style.display = 'flex';
     modalUp.style.display = 'none';
   }
-  // When opened from the April at a glance summary modal, don't stack on top of it —
-  // hide the summary modal first, show a back arrow instead of relying on X/Skip to leave.
-  feedbackReturnsToSummary = !!fromSummary;
-  document.getElementById('fb-back-up').style.display = feedbackReturnsToSummary ? 'flex' : 'none';
-  document.getElementById('fb-back-down').style.display = feedbackReturnsToSummary ? 'flex' : 'none';
+  // When opened from a full-page summary (the April at a glance summary modal, or the
+  // May at a glance historical detail page), don't stack on top of it — hide that page
+  // first and show a back arrow instead of relying on X/Skip to leave.
+  feedbackReturnsToSummary = origin === 'summary' || origin === true;
+  feedbackReturnsToGlanceDetail = origin === 'glance-detail';
+  var showBack = feedbackReturnsToSummary || feedbackReturnsToGlanceDetail;
+  document.getElementById('fb-back-up').style.display = showBack ? 'flex' : 'none';
+  document.getElementById('fb-back-down').style.display = showBack ? 'flex' : 'none';
   if (feedbackReturnsToSummary) {
     document.getElementById('ai-summary-overlay').style.display = 'none';
     document.getElementById('ai-summary-modal-v2').style.display = 'none';
   }
+  if (feedbackReturnsToGlanceDetail) {
+    document.getElementById('panel-glance-detail').style.display = 'none';
+  }
   overlay.style.display = 'flex';
 }
 function openAgsFeedbackModal(type) {
-  openFeedbackModal(type, true);
+  openFeedbackModal(type, 'summary');
+}
+function openGdFeedbackModal(type) {
+  openFeedbackModal(type, 'glance-detail');
 }
 function closeFeedbackModal() {
   document.getElementById('feedback-modal-overlay').style.display = 'none';
@@ -8808,6 +8858,9 @@ function closeFeedbackModal() {
     feedbackReturnsToSummary = false;
     document.getElementById('ai-summary-overlay').style.display = 'block';
     document.getElementById('ai-summary-modal-v2').style.display = 'flex';
+  } else if (feedbackReturnsToGlanceDetail) {
+    feedbackReturnsToGlanceDetail = false;
+    document.getElementById('panel-glance-detail').style.display = 'block';
   }
 }
 function feedbackBackToSummary() {
