@@ -370,15 +370,16 @@
     flex-wrap: wrap;
     row-gap: 8px;
     gap: 8px;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
   }
   .ai-summary-header svg { flex-shrink: 0; margin-top: 1px; }
   .ai-summary-header .ai-summary-view-btn,
   .ai-summary-header .ai-summary-dismiss-btn { margin-top: -2px; flex-shrink: 0; }
   .ai-summary-title {
     font-family: 'Poppins', sans-serif;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
+    line-height: 24px;
     color: #0A091B;
     flex: 1;
     min-width: 160px;
@@ -387,15 +388,17 @@
   }
   .ai-summary-desc {
     font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    color: #3B4A68;
-    line-height: 20px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #0A091B;
+    line-height: 24px;
     margin: 0 0 0 28px;
   }
   .ai-summary-subtext {
     font-family: 'Roboto', sans-serif;
-    font-size: 12px;
-    color: #8896AB;
+    font-size: 14px;
+    line-height: 20px;
+    color: #141623;
     margin: 8px 0 0 28px;
   }
   .ai-summary-view-btn {
@@ -1609,31 +1612,53 @@
   .insight-chat-input-row {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 8px;
-    background: linear-gradient(#fff, #fff) padding-box,
-                linear-gradient(to right, #FFADDB, #C2A5FF, #88C2FF, #9CFFAC) border-box;
-    border: 2px solid transparent;
+    background: #FFFFFF;
+    border: 2px solid #D0D9E8;
     border-radius: 96px;
-    padding: 10px 16px;
+    height: 44px;
+    box-sizing: border-box;
+    padding: 9px 15px;
     margin-bottom: 10px;
   }
+  .insight-chat-input-row:focus-within { border-color: #95BEFF; }
+  #chat-panel-input-wrap:focus-within { border-color: #95BEFF; }
   .insight-chat-input {
     flex: 1;
+    min-width: 0;
     border: none;
     outline: none;
-    font-size: 16px;
+    font-size: 14px;
     font-family: 'Roboto', sans-serif;
     color: #141623;
     background: transparent;
   }
-  .insight-chat-input::placeholder { color: #8896AB; }
+  .insight-chat-input::placeholder { color: #637CA8; }
+  .insight-send-btn {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: none;
+    padding: 0;
+    color: #676D74;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .insight-send-btn svg { width: 20px; height: 20px; }
+  .insight-send-btn .send-icon-filled { display: none; }
+  .insight-send-btn.is-active .send-icon-outline { display: none; }
+  .insight-send-btn.is-active .send-icon-filled { display: flex; }
   .insight-chat-chips { display: flex; gap: 8px; flex-wrap: wrap; }
   .insight-chat-chip {
     background: #B8D4FF;
     border: none;
     border-radius: 100px;
     padding: 6px 12px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: #141623;
     font-family: 'Roboto', sans-serif;
@@ -1642,6 +1667,28 @@
     transition: background 0.1s;
   }
   .insight-chat-chip:hover { background: #A0C4FF; }
+  .chat-dot-pulse {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 20px;
+    padding-left: 2px;
+  }
+  .chat-dot-pulse span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #1769FF;
+    display: inline-block;
+    animation: chat-dot-pulse-bounce 1.1s ease-in-out infinite;
+  }
+  .chat-dot-pulse span:nth-child(1) { animation-delay: 0s; }
+  .chat-dot-pulse span:nth-child(2) { animation-delay: 0.15s; }
+  .chat-dot-pulse span:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes chat-dot-pulse-bounce {
+    0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+    40% { opacity: 1; transform: scale(1); }
+  }
 
   /* Net sales KPI card — larger value + delta */
   .ns-left-col .metric-value { font-size: 44px; }
@@ -1991,9 +2038,9 @@
   }
   .gd-title {
     font-family: 'Poppins', sans-serif;
-    font-size: 32px;
+    font-size: 24px;
     font-weight: 600;
-    line-height: 40px;
+    line-height: 32px;
     color: #141623;
     margin: 0;
   }
@@ -2033,7 +2080,7 @@
     white-space: nowrap;
   }
 
-  .gd-summary-wrap { position: relative; margin-bottom: 32px; }
+  .gd-summary-wrap { position: relative; margin-bottom: 40px; }
   .gd-summary-glow {
     position: absolute;
     inset: 0;
@@ -2078,12 +2125,12 @@
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     line-height: 20px;
-    color: #37456C;
+    color: #141623;
     margin: 0;
   }
   .gd-footnote a { color: #1C5DCD; font-weight: 500; text-decoration: underline; }
 
-  .gd-cards-stack { display: flex; flex-direction: column; gap: 32px; padding-bottom: 40px; }
+  .gd-cards-stack { display: flex; flex-direction: column; gap: 24px; padding-bottom: 40px; }
   .gd-main-card {
     background: #FFFFFF;
     border: 1px solid #E2E9F3;
@@ -2098,13 +2145,37 @@
   }
   .gd-card-left { flex: 0 0 360px; max-width: 360px; }
   .gd-card-right { flex: 1; min-width: 0; }
-  .gd-rec-label {
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: #0A091B;
+  .gd-rec-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
     margin: 0 0 12px 0;
   }
+  .gd-rec-label {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    color: #0A091B;
+    margin: 0;
+  }
+  .gd-status-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 24px;
+    background: #E5E9F1;
+    color: #141623;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+  .gd-status-tag.is-done { background: #D4F1D8; color: #00611F; }
   .gd-main-card-title {
     font-family: 'Poppins', sans-serif;
     font-size: 24px;
@@ -2128,14 +2199,15 @@
     padding: 24px;
     background: radial-gradient(140% 140% at 0% 0%, rgba(149,190,255,0.16) 0%, rgba(89,142,230,0.12) 30%, rgba(28,93,205,0.10) 55%, rgba(93,83,194,0.08) 100%), #FAFBFF;
     display: flex;
-    gap: 12px;
+    flex-direction: column;
     align-items: flex-start;
+    gap: 16px;
   }
-  .gd-tile-text { flex: 1; min-width: 0; }
+  .gd-tile-text { width: 100%; }
   .gd-tile-title {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.1px;
     line-height: 24px;
     color: #0A091B;
@@ -2148,7 +2220,30 @@
     color: #0A091B;
     margin: 0;
   }
-  .gd-tile-actions { display: flex; gap: 8px; flex-shrink: 0; padding-top: 4px; }
+  .gd-mark-done-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 16px;
+    border-radius: 96px;
+    border: 1px solid #37456C;
+    background: transparent;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.2px;
+    color: #0A091B;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: auto;
+    transition: background 0.15s;
+  }
+  .gd-mark-done-btn:hover { background: #F4F7FA; }
+  .gd-mark-done-btn.is-done { background: #CCCFFF; }
+  .gd-mark-done-btn.is-done:hover { background: #BFC3FA; }
+  .gd-mark-done-btn .gd-check-icon { display: none; width: 18px; height: 18px; flex-shrink: 0; }
+  .gd-mark-done-btn.is-done .gd-check-icon { display: inline-flex; }
 
   /* Medium breakpoints and below: stack headline above recommended actions, tiles wrap to a column */
   @media (max-width: 1100px) {
@@ -2157,7 +2252,7 @@
     .gd-main-card-body { margin-bottom: 0; }
   }
   @media (max-width: 700px) {
-    .gd-title { font-size: 28px; line-height: 36px; }
+    .gd-title { font-size: 20px; line-height: 28px; }
     .gd-header-row { flex-wrap: wrap; gap: 12px; }
     .gd-tiles-row { flex-direction: column; }
   }
@@ -2167,8 +2262,8 @@
 <!-- Global SVG defs — gradient IDs used by sparkle icons in action cards -->
 <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <radialGradient id="sag0" cx="0" cy="0" r="1" gradientTransform="matrix(22.4691 19.9129 -0.315417 21.3047 1.93678 2.39844)" gradientUnits="userSpaceOnUse"><stop offset="0.0364853" stop-color="#FFADDB"/><stop offset="0.328739" stop-color="#FFA261"/><stop offset="0.653846" stop-color="#C3A5FF"/><stop offset="0.840574" stop-color="#7DBCFF"/></radialGradient>
-    <radialGradient id="sag1" cx="0" cy="0" r="1" gradientTransform="matrix(22.4691 19.9129 -0.315417 21.3047 1.93678 2.39844)" gradientUnits="userSpaceOnUse"><stop offset="0.0364853" stop-color="#FFADDB"/><stop offset="0.328739" stop-color="#FFA261"/><stop offset="0.653846" stop-color="#C3A5FF"/><stop offset="0.840574" stop-color="#7DBCFF"/></radialGradient>
+    <radialGradient id="sag0" cx="0" cy="0" r="1" gradientTransform="matrix(24.0213 21.5591 -0.363179 22.7957 1.93678 2.39844)" gradientUnits="userSpaceOnUse"><stop stop-color="#95BEFF"/><stop offset="0.504808" stop-color="#1C5DCD"/><stop offset="1" stop-color="#5D53C2"/></radialGradient>
+    <radialGradient id="sag1" cx="0" cy="0" r="1" gradientTransform="matrix(24.0213 21.5591 -0.363179 22.7957 1.93678 2.39844)" gradientUnits="userSpaceOnUse"><stop stop-color="#95BEFF"/><stop offset="0.504808" stop-color="#1C5DCD"/><stop offset="1" stop-color="#5D53C2"/></radialGradient>
   </defs>
 </svg>
 
@@ -2340,6 +2435,7 @@
           </button>
         </div>
       </div>
+
 
       <!-- AI summary banner (replaces the connections/promo banner) -->
       <div class="ai-summary-banner" id="ai-summary-banner">
@@ -3710,9 +3806,11 @@
             <!-- Chat section -->
             <div class="insight-chat-section">
               <div class="insight-chat-input-row">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 5.99844C10.4304 5.99844 10.8126 6.27387 10.9487 6.68221L12.4156 11.0829L16.8162 12.5498C17.2246 12.6859 17.5 13.068 17.5 13.4984C17.5 13.9289 17.2246 14.311 16.8162 14.4471L12.4156 15.914L10.9487 20.3147C10.8126 20.723 10.4304 20.9984 10 20.9984C9.56957 20.9984 9.18743 20.723 9.05132 20.3147L7.58443 15.914L3.18377 14.4471C2.77543 14.311 2.5 13.9289 2.5 13.4984C2.5 13.068 2.77543 12.6859 3.18377 12.5498L7.58443 11.0829L9.05132 6.68221C9.18743 6.27387 9.56957 5.99844 10 5.99844Z" fill="#323539"/><path fill-rule="evenodd" clip-rule="evenodd" d="M18 2.39844C18.2583 2.39844 18.4875 2.5637 18.5692 2.8087L19.3493 5.1491L21.6897 5.92923C21.9347 6.0109 22.1 6.24018 22.1 6.49844C22.1 6.7567 21.9347 6.98598 21.6897 7.06765L19.3493 7.84778L18.5692 10.1882C18.4875 10.4332 18.2583 10.5984 18 10.5984C17.7417 10.5984 17.5125 10.4332 17.4308 10.1882L16.6507 7.84778L14.3103 7.06765C14.0653 6.98598 13.9 6.7567 13.9 6.49844C13.9 6.24018 14.0653 6.0109 14.3103 5.92923L16.6507 5.1491L17.4308 2.8087C17.5125 2.5637 17.7417 2.39844 18 2.39844Z" fill="#323539"/></svg>
                 <input id="chat-input-positive" class="insight-chat-input" type="text" placeholder="Ask me a question about this insight"/>
-                <button onclick="/* send */" style="background:none;border:none;cursor:pointer;padding:0;display:flex;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="#676D74" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="insight-send-btn">
+                  <svg class="send-icon-outline" viewBox="0 0 19.8209 19.8209" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.07087 11.75L19.0709 0.750021M19.0709 0.750021L1.07087 7.25002C0.97513 7.2939 0.893998 7.36434 0.837117 7.45297C0.780237 7.5416 0.75 7.64471 0.75 7.75002C0.75 7.85534 0.780237 7.95844 0.837117 8.04707C0.893998 8.13571 0.97513 8.20615 1.07087 8.25002L8.07087 11.75L11.5709 18.75C11.6147 18.8458 11.6852 18.9269 11.7738 18.9838C11.8625 19.0407 11.9656 19.0709 12.0709 19.0709C12.1762 19.0709 12.2793 19.0407 12.3679 18.9838C12.4566 18.9269 12.527 18.8458 12.5709 18.75L19.0709 0.750021Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <svg class="send-icon-filled" viewBox="0 0 19.8209 19.8209" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.7763 1.00475C19.8751 0.731253 19.8068 0.425309 19.6012 0.219691C19.3956 0.0140729 19.0896 -0.0541588 18.8161 0.0446058L0.816138 6.54461C0.796581 6.55167 0.777326 6.55954 0.758423 6.5682C0.532124 6.67191 0.340358 6.8384 0.205913 7.0479C0.0714688 7.2574 0 7.50109 0 7.75002C0 7.99895 0.0714688 8.24264 0.205913 8.45214C0.33758 8.65731 0.524223 8.82124 0.744438 8.92533L6.56898 11.8376L15.3234 3.08317C15.7139 2.69265 16.3471 2.69265 16.7376 3.08317C17.1282 3.4737 17.1282 4.10686 16.7376 4.49739L7.98323 13.2518L10.8956 19.0765C10.9997 19.2967 11.1636 19.4833 11.3687 19.615C11.5782 19.7494 11.8219 19.8209 12.0709 19.8209C12.3198 19.8209 12.5635 19.7494 12.773 19.615C12.9825 19.4805 13.149 19.2888 13.2527 19.0625C13.2614 19.0436 13.2692 19.0243 13.2763 19.0048L19.7763 1.00475Z" fill="currentColor"/></svg>
+                </button>
               </div>
               <div class="insight-chat-chips">
                 <button class="insight-chat-chip" id="net-sales-chip-1" onclick="setInsightQuestion('chat-input-positive','What drove large party growth Friday?')">What drove large party growth Friday?</button>
@@ -3979,9 +4077,11 @@
             </div>
             <div class="insight-chat-section">
               <div class="insight-chat-input-row">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 5.99844C10.4304 5.99844 10.8126 6.27387 10.9487 6.68221L12.4156 11.0829L16.8162 12.5498C17.2246 12.6859 17.5 13.068 17.5 13.4984C17.5 13.9289 17.2246 14.311 16.8162 14.4471L12.4156 15.914L10.9487 20.3147C10.8126 20.723 10.4304 20.9984 10 20.9984C9.56957 20.9984 9.18743 20.723 9.05132 20.3147L7.58443 15.914L3.18377 14.4471C2.77543 14.311 2.5 13.9289 2.5 13.4984C2.5 13.068 2.77543 12.6859 3.18377 12.5498L7.58443 11.0829L9.05132 6.68221C9.18743 6.27387 9.56957 5.99844 10 5.99844Z" fill="#0A091B"/><path fill-rule="evenodd" clip-rule="evenodd" d="M18 2.39844C18.2583 2.39844 18.4875 2.5637 18.5692 2.8087L19.3493 5.1491L21.6897 5.92923C21.9347 6.0109 22.1 6.24018 22.1 6.49844C22.1 6.7567 21.9347 6.98598 21.6897 7.06765L19.3493 7.84778L18.5692 10.1882C18.4875 10.4332 18.2583 10.5984 18 10.5984C17.7417 10.5984 17.5125 10.4332 17.4308 10.1882L16.6507 7.84778L14.3103 7.06765C14.0653 6.98598 13.9 6.7567 13.9 6.49844C13.9 6.24018 14.0653 6.0109 14.3103 5.92923L16.6507 5.1491L17.4308 2.8087C17.5125 2.5637 17.7417 2.39844 18 2.39844Z" fill="#0A091B"/></svg>
                 <input id="chat-input-negative" class="insight-chat-input" type="text" placeholder="Ask me a question about this insight"/>
-                <button style="background:none;border:none;cursor:pointer;padding:0;display:flex;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="#676D74" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="insight-send-btn">
+                  <svg class="send-icon-outline" viewBox="0 0 19.8209 19.8209" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.07087 11.75L19.0709 0.750021M19.0709 0.750021L1.07087 7.25002C0.97513 7.2939 0.893998 7.36434 0.837117 7.45297C0.780237 7.5416 0.75 7.64471 0.75 7.75002C0.75 7.85534 0.780237 7.95844 0.837117 8.04707C0.893998 8.13571 0.97513 8.20615 1.07087 8.25002L8.07087 11.75L11.5709 18.75C11.6147 18.8458 11.6852 18.9269 11.7738 18.9838C11.8625 19.0407 11.9656 19.0709 12.0709 19.0709C12.1762 19.0709 12.2793 19.0407 12.3679 18.9838C12.4566 18.9269 12.527 18.8458 12.5709 18.75L19.0709 0.750021Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <svg class="send-icon-filled" viewBox="0 0 19.8209 19.8209" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.7763 1.00475C19.8751 0.731253 19.8068 0.425309 19.6012 0.219691C19.3956 0.0140729 19.0896 -0.0541588 18.8161 0.0446058L0.816138 6.54461C0.796581 6.55167 0.777326 6.55954 0.758423 6.5682C0.532124 6.67191 0.340358 6.8384 0.205913 7.0479C0.0714688 7.2574 0 7.50109 0 7.75002C0 7.99895 0.0714688 8.24264 0.205913 8.45214C0.33758 8.65731 0.524223 8.82124 0.744438 8.92533L6.56898 11.8376L15.3234 3.08317C15.7139 2.69265 16.3471 2.69265 16.7376 3.08317C17.1282 3.4737 17.1282 4.10686 16.7376 4.49739L7.98323 13.2518L10.8956 19.0765C10.9997 19.2967 11.1636 19.4833 11.3687 19.615C11.5782 19.7494 11.8219 19.8209 12.0709 19.8209C12.3198 19.8209 12.5635 19.7494 12.773 19.615C12.9825 19.4805 13.149 19.2888 13.2527 19.0625C13.2614 19.0436 13.2692 19.0243 13.2763 19.0048L19.7763 1.00475Z" fill="currentColor"/></svg>
+                </button>
               </div>
               <div class="insight-chat-chips">
                 <button class="insight-chat-chip" id="spend-chip-1" onclick="setInsightQuestion('chat-input-negative','Why is Friday so much busier than Saturday?')">Why is Friday so much busier than Saturday?</button>
@@ -4250,9 +4350,11 @@
             </div>
             <div class="insight-chat-section">
               <div class="insight-chat-input-row">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 5.99844C10.4304 5.99844 10.8126 6.27387 10.9487 6.68221L12.4156 11.0829L16.8162 12.5498C17.2246 12.6859 17.5 13.068 17.5 13.4984C17.5 13.9289 17.2246 14.311 16.8162 14.4471L12.4156 15.914L10.9487 20.3147C10.8126 20.723 10.4304 20.9984 10 20.9984C9.56957 20.9984 9.18743 20.723 9.05132 20.3147L7.58443 15.914L3.18377 14.4471C2.77543 14.311 2.5 13.9289 2.5 13.4984C2.5 13.068 2.77543 12.6859 3.18377 12.5498L7.58443 11.0829L9.05132 6.68221C9.18743 6.27387 9.56957 5.99844 10 5.99844Z" fill="#0A091B"/><path fill-rule="evenodd" clip-rule="evenodd" d="M18 2.39844C18.2583 2.39844 18.4875 2.5637 18.5692 2.8087L19.3493 5.1491L21.6897 5.92923C21.9347 6.0109 22.1 6.24018 22.1 6.49844C22.1 6.7567 21.9347 6.98598 21.6897 7.06765L19.3493 7.84778L18.5692 10.1882C18.4875 10.4332 18.2583 10.5984 18 10.5984C17.7417 10.5984 17.5125 10.4332 17.4308 10.1882L16.6507 7.84778L14.3103 7.06765C14.0653 6.98598 13.9 6.7567 13.9 6.49844C13.9 6.24018 14.0653 6.0109 14.3103 5.92923L16.6507 5.1491L17.4308 2.8087C17.5125 2.5637 17.7417 2.39844 18 2.39844Z" fill="#0A091B"/></svg>
                 <input id="chat-input-labor" class="insight-chat-input" type="text" placeholder="Ask me a question about this insight"/>
-                <button style="background:none;border:none;cursor:pointer;padding:0;display:flex;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="#676D74" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="insight-send-btn">
+                  <svg class="send-icon-outline" viewBox="0 0 19.8209 19.8209" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.07087 11.75L19.0709 0.750021M19.0709 0.750021L1.07087 7.25002C0.97513 7.2939 0.893998 7.36434 0.837117 7.45297C0.780237 7.5416 0.75 7.64471 0.75 7.75002C0.75 7.85534 0.780237 7.95844 0.837117 8.04707C0.893998 8.13571 0.97513 8.20615 1.07087 8.25002L8.07087 11.75L11.5709 18.75C11.6147 18.8458 11.6852 18.9269 11.7738 18.9838C11.8625 19.0407 11.9656 19.0709 12.0709 19.0709C12.1762 19.0709 12.2793 19.0407 12.3679 18.9838C12.4566 18.9269 12.527 18.8458 12.5709 18.75L19.0709 0.750021Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <svg class="send-icon-filled" viewBox="0 0 19.8209 19.8209" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.7763 1.00475C19.8751 0.731253 19.8068 0.425309 19.6012 0.219691C19.3956 0.0140729 19.0896 -0.0541588 18.8161 0.0446058L0.816138 6.54461C0.796581 6.55167 0.777326 6.55954 0.758423 6.5682C0.532124 6.67191 0.340358 6.8384 0.205913 7.0479C0.0714688 7.2574 0 7.50109 0 7.75002C0 7.99895 0.0714688 8.24264 0.205913 8.45214C0.33758 8.65731 0.524223 8.82124 0.744438 8.92533L6.56898 11.8376L15.3234 3.08317C15.7139 2.69265 16.3471 2.69265 16.7376 3.08317C17.1282 3.4737 17.1282 4.10686 16.7376 4.49739L7.98323 13.2518L10.8956 19.0765C10.9997 19.2967 11.1636 19.4833 11.3687 19.615C11.5782 19.7494 11.8219 19.8209 12.0709 19.8209C12.3198 19.8209 12.5635 19.7494 12.773 19.615C12.9825 19.4805 13.149 19.2888 13.2527 19.0625C13.2614 19.0436 13.2692 19.0243 13.2763 19.0048L19.7763 1.00475Z" fill="currentColor"/></svg>
+                </button>
               </div>
               <div class="insight-chat-chips">
                 <button class="insight-chat-chip" id="labor-chip-1" onclick="setInsightQuestion('chat-input-labor','Which shifts were most over budget this week?')">Which shifts were most over budget this week?</button>
@@ -4541,9 +4643,11 @@
             </div>
             <div class="insight-chat-section">
               <div class="insight-chat-input-row">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 5.99844C10.4304 5.99844 10.8126 6.27387 10.9487 6.68221L12.4156 11.0829L16.8162 12.5498C17.2246 12.6859 17.5 13.068 17.5 13.4984C17.5 13.9289 17.2246 14.311 16.8162 14.4471L12.4156 15.914L10.9487 20.3147C10.8126 20.723 10.4304 20.9984 10 20.9984C9.56957 20.9984 9.18743 20.723 9.05132 20.3147L7.58443 15.914L3.18377 14.4471C2.77543 14.311 2.5 13.9289 2.5 13.4984C2.5 13.068 2.77543 12.6859 3.18377 12.5498L7.58443 11.0829L9.05132 6.68221C9.18743 6.27387 9.56957 5.99844 10 5.99844Z" fill="#0A091B"/><path fill-rule="evenodd" clip-rule="evenodd" d="M18 2.39844C18.2583 2.39844 18.4875 2.5637 18.5692 2.8087L19.3493 5.1491L21.6897 5.92923C21.9347 6.0109 22.1 6.24018 22.1 6.49844C22.1 6.7567 21.9347 6.98598 21.6897 7.06765L19.3493 7.84778L18.5692 10.1882C18.4875 10.4332 18.2583 10.5984 18 10.5984C17.7417 10.5984 17.5125 10.4332 17.4308 10.1882L16.6507 7.84778L14.3103 7.06765C14.0653 6.98598 13.9 6.7567 13.9 6.49844C13.9 6.24018 14.0653 6.0109 14.3103 5.92923L16.6507 5.1491L17.4308 2.8087C17.5125 2.5637 17.7417 2.39844 18 2.39844Z" fill="#0A091B"/></svg>
                 <input id="chat-input-sunday" class="insight-chat-input" type="text" placeholder="Ask me a question about this insight"/>
-                <button style="background:none;border:none;cursor:pointer;padding:0;display:flex;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="#676D74" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="insight-send-btn">
+                  <svg class="send-icon-outline" viewBox="0 0 19.8209 19.8209" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.07087 11.75L19.0709 0.750021M19.0709 0.750021L1.07087 7.25002C0.97513 7.2939 0.893998 7.36434 0.837117 7.45297C0.780237 7.5416 0.75 7.64471 0.75 7.75002C0.75 7.85534 0.780237 7.95844 0.837117 8.04707C0.893998 8.13571 0.97513 8.20615 1.07087 8.25002L8.07087 11.75L11.5709 18.75C11.6147 18.8458 11.6852 18.9269 11.7738 18.9838C11.8625 19.0407 11.9656 19.0709 12.0709 19.0709C12.1762 19.0709 12.2793 19.0407 12.3679 18.9838C12.4566 18.9269 12.527 18.8458 12.5709 18.75L19.0709 0.750021Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <svg class="send-icon-filled" viewBox="0 0 19.8209 19.8209" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.7763 1.00475C19.8751 0.731253 19.8068 0.425309 19.6012 0.219691C19.3956 0.0140729 19.0896 -0.0541588 18.8161 0.0446058L0.816138 6.54461C0.796581 6.55167 0.777326 6.55954 0.758423 6.5682C0.532124 6.67191 0.340358 6.8384 0.205913 7.0479C0.0714688 7.2574 0 7.50109 0 7.75002C0 7.99895 0.0714688 8.24264 0.205913 8.45214C0.33758 8.65731 0.524223 8.82124 0.744438 8.92533L6.56898 11.8376L15.3234 3.08317C15.7139 2.69265 16.3471 2.69265 16.7376 3.08317C17.1282 3.4737 17.1282 4.10686 16.7376 4.49739L7.98323 13.2518L10.8956 19.0765C10.9997 19.2967 11.1636 19.4833 11.3687 19.615C11.5782 19.7494 11.8219 19.8209 12.0709 19.8209C12.3198 19.8209 12.5635 19.7494 12.773 19.615C12.9825 19.4805 13.149 19.2888 13.2527 19.0625C13.2614 19.0436 13.2692 19.0243 13.2763 19.0048L19.7763 1.00475Z" fill="currentColor"/></svg>
+                </button>
               </div>
               <div class="insight-chat-chips">
                 <button class="insight-chat-chip" id="sunday-chip-1" onclick="setInsightQuestion('chat-input-sunday','What made the Keiki promotion work so well?')">What made the Keiki promotion work so well?</button>
@@ -4780,9 +4884,11 @@
             </div>
             <div class="insight-chat-section">
               <div class="insight-chat-input-row">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 5.99844C10.4304 5.99844 10.8126 6.27387 10.9487 6.68221L12.4156 11.0829L16.8162 12.5498C17.2246 12.6859 17.5 13.068 17.5 13.4984C17.5 13.9289 17.2246 14.311 16.8162 14.4471L12.4156 15.914L10.9487 20.3147C10.8126 20.723 10.4304 20.9984 10 20.9984C9.56957 20.9984 9.18743 20.723 9.05132 20.3147L7.58443 15.914L3.18377 14.4471C2.77543 14.311 2.5 13.9289 2.5 13.4984C2.5 13.068 2.77543 12.6859 3.18377 12.5498L7.58443 11.0829L9.05132 6.68221C9.18743 6.27387 9.56957 5.99844 10 5.99844Z" fill="#0A091B"/><path fill-rule="evenodd" clip-rule="evenodd" d="M18 2.39844C18.2583 2.39844 18.4875 2.5637 18.5692 2.8087L19.3493 5.1491L21.6897 5.92923C21.9347 6.0109 22.1 6.24018 22.1 6.49844C22.1 6.7567 21.9347 6.98598 21.6897 7.06765L19.3493 7.84778L18.5692 10.1882C18.4875 10.4332 18.2583 10.5984 18 10.5984C17.7417 10.5984 17.5125 10.4332 17.4308 10.1882L16.6507 7.84778L14.3103 7.06765C14.0653 6.98598 13.9 6.7567 13.9 6.49844C13.9 6.24018 14.0653 6.0109 14.3103 5.92923L16.6507 5.1491L17.4308 2.8087C17.5125 2.5637 17.7417 2.39844 18 2.39844Z" fill="#0A091B"/></svg>
                 <input id="chat-input-discounts" class="insight-chat-input" type="text" placeholder="Ask me a question about this insight"/>
-                <button style="background:none;border:none;cursor:pointer;padding:0;display:flex;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="#676D74" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="insight-send-btn">
+                  <svg class="send-icon-outline" viewBox="0 0 19.8209 19.8209" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.07087 11.75L19.0709 0.750021M19.0709 0.750021L1.07087 7.25002C0.97513 7.2939 0.893998 7.36434 0.837117 7.45297C0.780237 7.5416 0.75 7.64471 0.75 7.75002C0.75 7.85534 0.780237 7.95844 0.837117 8.04707C0.893998 8.13571 0.97513 8.20615 1.07087 8.25002L8.07087 11.75L11.5709 18.75C11.6147 18.8458 11.6852 18.9269 11.7738 18.9838C11.8625 19.0407 11.9656 19.0709 12.0709 19.0709C12.1762 19.0709 12.2793 19.0407 12.3679 18.9838C12.4566 18.9269 12.527 18.8458 12.5709 18.75L19.0709 0.750021Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <svg class="send-icon-filled" viewBox="0 0 19.8209 19.8209" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.7763 1.00475C19.8751 0.731253 19.8068 0.425309 19.6012 0.219691C19.3956 0.0140729 19.0896 -0.0541588 18.8161 0.0446058L0.816138 6.54461C0.796581 6.55167 0.777326 6.55954 0.758423 6.5682C0.532124 6.67191 0.340358 6.8384 0.205913 7.0479C0.0714688 7.2574 0 7.50109 0 7.75002C0 7.99895 0.0714688 8.24264 0.205913 8.45214C0.33758 8.65731 0.524223 8.82124 0.744438 8.92533L6.56898 11.8376L15.3234 3.08317C15.7139 2.69265 16.3471 2.69265 16.7376 3.08317C17.1282 3.4737 17.1282 4.10686 16.7376 4.49739L7.98323 13.2518L10.8956 19.0765C10.9997 19.2967 11.1636 19.4833 11.3687 19.615C11.5782 19.7494 11.8219 19.8209 12.0709 19.8209C12.3198 19.8209 12.5635 19.7494 12.773 19.615C12.9825 19.4805 13.149 19.2888 13.2527 19.0625C13.2614 19.0436 13.2692 19.0243 13.2763 19.0048L19.7763 1.00475Z" fill="currentColor"/></svg>
+                </button>
               </div>
               <div class="insight-chat-chips">
                 <button class="insight-chat-chip" id="discounts-chip-1" onclick="setInsightQuestion('chat-input-discounts','Which server likely made this error?')">Which server likely made this error?</button>
@@ -5024,6 +5130,31 @@
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
           </div>
+        </div>
+
+        <!-- Connect accounting banner: shown only until accounting software is connected -->
+        <div class="ai-summary-banner" id="vai-connect-accounting-banner" style="margin-top:24px;display:none;">
+          <div class="ai-summary-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M10 5.99844C10.4304 5.99844 10.8126 6.27387 10.9487 6.68221L12.4156 11.0829L16.8162 12.5498C17.2246 12.6859 17.5 13.068 17.5 13.4984C17.5 13.9289 17.2246 14.311 16.8162 14.4471L12.4156 15.914L10.9487 20.3147C10.8126 20.723 10.4304 20.9984 10 20.9984C9.56957 20.9984 9.18743 20.723 9.05132 20.3147L7.58443 15.914L3.18377 14.4471C2.77543 14.311 2.5 13.9289 2.5 13.4984C2.5 13.068 2.77543 12.6859 3.18377 12.5498L7.58443 11.0829L9.05132 6.68221C9.18743 6.27387 9.56957 5.99844 10 5.99844Z" fill="url(#sparkle-grad1-vai-connect)"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M18 2.39844C18.2583 2.39844 18.4875 2.5637 18.5692 2.8087L19.3493 5.1491L21.6897 5.92923C21.9347 6.0109 22.1 6.24018 22.1 6.49844C22.1 6.7567 21.9347 6.98598 21.6897 7.06765L19.3493 7.84778L18.5692 10.1882C18.4875 10.4332 18.2583 10.5984 18 10.5984C17.7417 10.5984 17.5125 10.4332 17.4308 10.1882L16.6507 7.84778L14.3103 7.06765C14.0653 6.98598 13.9 6.7567 13.9 6.49844C13.9 6.24018 14.0653 6.0109 14.3103 5.92923L16.6507 5.1491L17.4308 2.8087C17.5125 2.5637 17.7417 2.39844 18 2.39844Z" fill="url(#sparkle-grad2-vai-connect)"/>
+              <defs>
+                <radialGradient id="sparkle-grad1-vai-connect" cx="0" cy="0" r="1" gradientTransform="matrix(24.0213 21.5591 -0.363179 22.7957 1.93678 2.39844)" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#95BEFF"/>
+                  <stop offset="0.504808" stop-color="#1C5DCD"/>
+                  <stop offset="1" stop-color="#5D53C2"/>
+                </radialGradient>
+                <radialGradient id="sparkle-grad2-vai-connect" cx="0" cy="0" r="1" gradientTransform="matrix(24.0213 21.5591 -0.363179 22.7957 1.93678 2.39844)" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#95BEFF"/>
+                  <stop offset="0.504808" stop-color="#1C5DCD"/>
+                  <stop offset="1" stop-color="#5D53C2"/>
+                </radialGradient>
+              </defs>
+            </svg>
+            <p class="ai-summary-title">Connect your accounting software</p>
+            <button class="ai-summary-view-btn" onclick="openAccountingModal()">Connect</button>
+          </div>
+          <p class="ai-summary-desc">See your monthly net income, sales, staffing, and discount performance once your accounting software is connected.</p>
         </div>
 
         <!-- Summary banner -->
@@ -5381,11 +5512,11 @@
             <div class="gd-card-header">
               <p class="gd-summary-title">Net income reached $58,340</p>
               <div class="gd-feedback">
-                <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')">
-                  <svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')" style="width:18px;height:18px;display:flex;align-items:center;justify-content:center;">
+                  <svg width="14.25" height="13.4319" viewBox="0 0 14.25 13.4319" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 5.92781H1.5C1.0915 5.92781 0.75 6.26931 0.75 6.67781V11.9278C0.75 12.3363 1.0915 12.6778 1.5 12.6778H3C3.4085 12.6778 3.75 12.3363 3.75 11.9278V10.4278M3.75 5.92781V10.4278M3.75 5.92781C5.92363 5.92781 6.75 4.02602 6.75 2.17781C6.75 0.217951 9.75 0.331004 9.75 2.17781V5.92781H12C12.817 5.92781 13.5 6.61081 13.5 7.42781L12.75 11.1778C12.5876 11.8705 12.0783 12.7483 11.25 12.6778H6C4.7745 12.6778 3.75 11.6533 3.75 10.4278" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
-                <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')">
-                  <svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')" style="width:18px;height:18px;display:flex;align-items:center;justify-content:center;">
+                  <svg width="14.25" height="13.5037" viewBox="0 0 14.25 13.5037" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 7.50369H1.5C1.30109 7.50369 1.11032 7.42467 0.96967 7.28402C0.829018 7.14337 0.75 6.9526 0.75 6.75369V1.50369C0.75 1.30478 0.829018 1.11401 0.96967 0.973359C1.11032 0.832707 1.30109 0.75369 1.5 0.75369H3C3.19891 0.75369 3.38968 0.832707 3.53033 0.973359C3.67098 1.11401 3.75 1.30478 3.75 1.50369V3.00369M3.75 7.50369C4.54565 7.50369 5.30871 7.81976 5.87132 8.38237C6.43393 8.94498 6.75 9.70804 6.75 10.5037V11.2537C6.75 11.6515 6.90804 12.033 7.18934 12.3144C7.47064 12.5957 7.85218 12.7537 8.25 12.7537C8.64782 12.7537 9.02936 12.5957 9.31066 12.3144C9.59196 12.033 9.75 11.6515 9.75 11.2537V7.50369H12C12.3978 7.50369 12.7794 7.34565 13.0607 7.06435C13.342 6.78304 13.5 6.40151 13.5 6.00369L12.75 2.25369C12.6421 1.79358 12.4375 1.39851 12.167 1.12797C11.8964 0.857426 11.5746 0.726072 11.25 0.75369H6C5.40326 0.75369 4.83097 0.990743 4.40901 1.4127C3.98705 1.83466 3.75 2.40695 3.75 3.00369M3.75 7.50369V3.00369" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
               </div>
             </div>
@@ -5402,35 +5533,34 @@
               <div class="gd-card-left">
                 <div class="gd-card-header">
                   <p class="gd-main-card-title">1,142 guests came through</p>
-                  <div class="gd-feedback">
-                    <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                    <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                  </div>
                 </div>
                 <p class="gd-main-card-body">That's a bit lighter than April, mostly from quieter weekday lunches. The good news is your weekend crowd stayed steady.</p>
               </div>
               <div class="gd-card-right">
-                <p class="gd-rec-label">Recommended actions</p>
+                <div class="gd-rec-header">
+                  <p class="gd-rec-label">Recommended actions</p>
+                  <span class="gd-status-tag" data-gd-status-tag>0/2 done</span>
+                </div>
                 <div class="gd-tiles-row">
                   <div class="gd-tile">
                     <div class="gd-tile-text">
                       <p class="gd-tile-title">Bring back weekday lunch traffic</p>
                       <p class="gd-tile-body">Weekday lunch visits have declined for three weeks running. A midweek special could help recover that foot traffic.</p>
                     </div>
-                    <div class="gd-tile-actions">
-                      <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                      <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                    </div>
+                    <button class="gd-mark-done-btn" type="button" onclick="toggleGdTileDone(this)">
+                      <svg class="gd-check-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 9L7.5 12.75L15 5.25" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <span>Mark as done</span>
+                    </button>
                   </div>
                   <div class="gd-tile">
                     <div class="gd-tile-text">
                       <p class="gd-tile-title">Turn weekend traffic into repeat visits</p>
                       <p class="gd-tile-body">Capturing contact info at checkout or promoting a loyalty offer could turn more visits into repeat business.</p>
                     </div>
-                    <div class="gd-tile-actions">
-                      <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                      <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                    </div>
+                    <button class="gd-mark-done-btn" type="button" onclick="toggleGdTileDone(this)">
+                      <svg class="gd-check-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 9L7.5 12.75L15 5.25" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <span>Mark as done</span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -5443,35 +5573,34 @@
               <div class="gd-card-left">
                 <div class="gd-card-header">
                   <p class="gd-main-card-title">Sales per labor hour dipped to $86</p>
-                  <div class="gd-feedback">
-                    <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                    <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                  </div>
                 </div>
                 <p class="gd-main-card-body">Down from $92 in April, mostly from Tuesday and Wednesday lunch shifts running overstaffed relative to sales. Weekend dinner shifts stayed efficient.</p>
               </div>
               <div class="gd-card-right">
-                <p class="gd-rec-label">Recommended actions</p>
+                <div class="gd-rec-header">
+                  <p class="gd-rec-label">Recommended actions</p>
+                  <span class="gd-status-tag" data-gd-status-tag>0/2 done</span>
+                </div>
                 <div class="gd-tiles-row">
                   <div class="gd-tile">
                     <div class="gd-tile-text">
                       <p class="gd-tile-title">Review Tue/Wed lunch scheduling</p>
                       <p class="gd-tile-body">These shifts are running the most hours relative to sales this month. Trimming coverage slightly could bring efficiency back in line.</p>
                     </div>
-                    <div class="gd-tile-actions">
-                      <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                      <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                    </div>
+                    <button class="gd-mark-done-btn" type="button" onclick="toggleGdTileDone(this)">
+                      <svg class="gd-check-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 9L7.5 12.75L15 5.25" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <span>Mark as done</span>
+                    </button>
                   </div>
                   <div class="gd-tile">
                     <div class="gd-tile-text">
                       <p class="gd-tile-title">Use weekend dinner as the staffing benchmark</p>
                       <p class="gd-tile-body">Friday and Saturday dinner posted your highest sales per labor hour. Matching that staff-to-sales ratio elsewhere could help close the gap.</p>
                     </div>
-                    <div class="gd-tile-actions">
-                      <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                      <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                    </div>
+                    <button class="gd-mark-done-btn" type="button" onclick="toggleGdTileDone(this)">
+                      <svg class="gd-check-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 9L7.5 12.75L15 5.25" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <span>Mark as done</span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -5484,35 +5613,34 @@
               <div class="gd-card-left">
                 <div class="gd-card-header">
                   <p class="gd-main-card-title">Discounts totaled $2,150</p>
-                  <div class="gd-feedback">
-                    <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                    <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                  </div>
                 </div>
                 <p class="gd-main-card-body">That's about 4% of gross sales, in line with your typical range for the month.</p>
               </div>
               <div class="gd-card-right">
-                <p class="gd-rec-label">Recommended actions</p>
+                <div class="gd-rec-header">
+                  <p class="gd-rec-label">Recommended actions</p>
+                  <span class="gd-status-tag" data-gd-status-tag>0/2 done</span>
+                </div>
                 <div class="gd-tiles-row">
                   <div class="gd-tile">
                     <div class="gd-tile-text">
                       <p class="gd-tile-title">Review your most-used discount codes</p>
                       <p class="gd-tile-body">A handful of comps and staff discounts made up most of this month's total. Check they're still being applied correctly.</p>
                     </div>
-                    <div class="gd-tile-actions">
-                      <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                      <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                    </div>
+                    <button class="gd-mark-done-btn" type="button" onclick="toggleGdTileDone(this)">
+                      <svg class="gd-check-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 9L7.5 12.75L15 5.25" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <span>Mark as done</span>
+                    </button>
                   </div>
                   <div class="gd-tile">
                     <div class="gd-tile-text">
                       <p class="gd-tile-title">Set an approval threshold for large discounts</p>
                       <p class="gd-tile-body">A few discounts this month were larger than average. Requiring manager approval above a set amount can help keep discounting consistent.</p>
                     </div>
-                    <div class="gd-tile-actions">
-                      <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                      <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                    </div>
+                    <button class="gd-mark-done-btn" type="button" onclick="toggleGdTileDone(this)">
+                      <svg class="gd-check-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 9L7.5 12.75L15 5.25" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <span>Mark as done</span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -5525,35 +5653,34 @@
               <div class="gd-card-left">
                 <div class="gd-card-header">
                   <p class="gd-main-card-title">Spend per guest rose to $28.40</p>
-                  <div class="gd-feedback">
-                    <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                    <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                  </div>
                 </div>
                 <p class="gd-main-card-body">That's up $1.60 from April, driven mostly by higher cocktail and appetizer attach rates at dinner. Lunch spend per guest held about flat.</p>
               </div>
               <div class="gd-card-right">
-                <p class="gd-rec-label">Recommended actions</p>
+                <div class="gd-rec-header">
+                  <p class="gd-rec-label">Recommended actions</p>
+                  <span class="gd-status-tag" data-gd-status-tag>0/2 done</span>
+                </div>
                 <div class="gd-tiles-row">
                   <div class="gd-tile">
                     <div class="gd-tile-text">
                       <p class="gd-tile-title">Feature higher-margin add-ons at checkout</p>
                       <p class="gd-tile-body">Dinner guests are already trading up. Prompting an appetizer or dessert add-on at checkout could lift average ticket further.</p>
                     </div>
-                    <div class="gd-tile-actions">
-                      <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                      <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                    </div>
+                    <button class="gd-mark-done-btn" type="button" onclick="toggleGdTileDone(this)">
+                      <svg class="gd-check-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 9L7.5 12.75L15 5.25" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <span>Mark as done</span>
+                    </button>
                   </div>
                   <div class="gd-tile">
                     <div class="gd-tile-text">
                       <p class="gd-tile-title">Train staff on suggestive upselling at lunch</p>
                       <p class="gd-tile-body">Lunch spend per guest hasn't moved in 3 months. A quick refresh on suggesting drinks or sides could help close the gap with dinner.</p>
                     </div>
-                    <div class="gd-tile-actions">
-                      <button class="thumb-btn" aria-label="Helpful" onclick="openGdFeedbackModal('up')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                      <button class="thumb-btn" aria-label="Not helpful" onclick="openGdFeedbackModal('down')"><svg width="18" height="18" viewBox="0 0 36 36" fill="none" style="transform:rotate(180deg);"><path d="M13 16.9999H10C9.45533 16.9999 9 17.4553 9 17.9999V24.9999C9 25.5446 9.45533 25.9999 10 25.9999H12C12.5447 25.9999 13 25.5446 13 24.9999V22.9999M13 16.9999V22.9999M13 16.9999C15.8982 16.9999 17 14.4642 17 11.9999C17 9.3868 21 9.53753 21 11.9999V16.9999H24C25.0893 16.9999 26 17.9106 26 18.9999L25 23.9999C24.7835 24.9235 24.1044 26.0939 23 25.9999H16C14.366 25.9999 13 24.6339 13 22.9999" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                    </div>
+                    <button class="gd-mark-done-btn" type="button" onclick="toggleGdTileDone(this)">
+                      <svg class="gd-check-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 9L7.5 12.75L15 5.25" stroke="#0A091B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <span>Mark as done</span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -5872,6 +5999,7 @@
       _updateAccountingMetricCard(accountingLabel, accountingKpi);
       showAccountingToast(accountingLabel + ' added successfully.');
       _updatePromoBannerVisibility();
+      _refreshMonthlyInsightsBanner();
     } else if (cfg.type === 'kitchen') {
       var kitchenLabel = kitchenSoftwareLabels[key];
       var kitchenKpi = pending ? pending.kpiValue : 'food-cost';
@@ -7226,8 +7354,11 @@
     if (_promoBannerManuallyDismissed) return;
     var banners = document.querySelectorAll('.promo-banner');
     if (!banners.length) return;
-    var allConnected = !!(_connectedLaborSoftware && _connectedAccountingSoftware);
-    banners.forEach(function(banner) { banner.style.display = allConnected ? 'none' : ''; });
+    // The blue "Enhance your weekly insights" banner and the purple monthly
+    // summary banner are either/or: once accounting is connected, the monthly
+    // summary takes its place and this banner steps aside.
+    var accountingConnected = !!_connectedAccountingSoftware;
+    banners.forEach(function(banner) { banner.style.display = accountingConnected ? 'none' : ''; });
   }
 
   // ── Connected card: kebab menu, view, disconnect ──
@@ -7508,7 +7639,27 @@
     _updatePromoBannerVisibility();
     _updateAllChatConnectChips();
     _refreshConnectOnboardingButtons();
+    _refreshMonthlyInsightsBanner();
   }
+
+  // ── Monthly insights banner vs. "connect your accounting" banner ──
+  // The May/June "at a glance" monthly summary can only be generated from accounting
+  // data, so it only shows once accounting is connected. On the dashboard, the existing
+  // blue "Enhance your weekly insights" promo banner already covers the disconnected
+  // state (see _updatePromoBannerVisibility) — it's either/or with this purple banner.
+  // The "Your insights" page has no promo banner equivalent, so it keeps its own
+  // lightweight CTA banner for the disconnected state.
+  function _refreshMonthlyInsightsBanner() {
+    var connected = !!_connectedAccountingSoftware;
+    var vaiConnectBanner = document.getElementById('vai-connect-accounting-banner');
+    var insightsBanner = document.getElementById('ai-summary-banner');
+    var vaiInsightsBanner = document.getElementById('vai-ai-summary-banner');
+    if (vaiConnectBanner) vaiConnectBanner.style.display = connected ? 'none' : 'block';
+    if (insightsBanner) insightsBanner.style.display = connected ? '' : 'none';
+    if (vaiInsightsBanner) vaiInsightsBanner.style.display = connected ? '' : 'none';
+    _updatePromoBannerVisibility();
+  }
+  _refreshMonthlyInsightsBanner();
 
   // If the KPI is changed inline on the connected "Manage connections" card,
   // keep the dashboard's Accounting card in sync.
@@ -8405,8 +8556,11 @@
   function _updateSendIcon(input) {
     var row = input.closest('.insight-chat-input-row');
     if (!row) return;
-    var path = row.querySelector('button svg path');
-    if (path) path.setAttribute('stroke', input.value.trim() ? '#1063F9' : '#676D74');
+    var btn = row.querySelector('.insight-send-btn');
+    if (!btn) return;
+    var hasText = !!input.value.trim();
+    btn.classList.toggle('is-active', hasText);
+    btn.style.color = hasText ? '#1C5DCD' : '#676D74';
   }
 
   function _submitInsightInput(input) {
@@ -8423,24 +8577,23 @@
     var messages = document.getElementById('chat-messages');
     messages.innerHTML = '';
     panel.style.transform = 'translateX(0)';
-    overlay.style.opacity = '1';
     overlay.style.pointerEvents = 'auto';
     _addUserMsg(question);
+    var dots = _addTypingDots();
     setTimeout(function() {
+      dots.remove();
       _respondToChat(question, 'I\'m analyzing your Jun 8–14 data now. Based on what I\'m seeing, that\'s one of the more nuanced patterns in your week — let me pull the relevant context and get back to you in a moment.');
     }, 900);
   }
 
   function closeChatPanel() {
     document.getElementById('chat-panel').style.transform = 'translateX(100%)';
-    var overlay = document.getElementById('chat-overlay');
-    overlay.style.opacity = '0';
-    overlay.style.pointerEvents = 'none';
+    document.getElementById('chat-overlay').style.pointerEvents = 'none';
   }
 
   function _addUserMsg(text) {
     var m = document.createElement('div');
-    m.style.cssText = 'align-self:flex-end;background:#D3E5FF;border-radius:12px;padding:12px 16px;max-width:260px;font-family:\'Roboto\',sans-serif;font-size:16px;color:#090D12;line-height:24px;word-break:break-word;';
+    m.style.cssText = 'align-self:flex-end;max-width:280px;background:#EFF5FF;border-radius:12px;padding:10px 16px;font-family:\'Roboto\',sans-serif;font-size:14px;color:#141623;line-height:1.4;word-break:break-word;';
     m.textContent = text;
     document.getElementById('chat-messages').appendChild(m);
     _scrollChat();
@@ -8448,10 +8601,19 @@
 
   function _addAiMsg(text) {
     var m = document.createElement('div');
-    m.style.cssText = 'align-self:flex-start;background:#ffffff;border-radius:12px;padding:12px 16px;max-width:288px;font-family:\'Roboto\',sans-serif;font-size:16px;color:#090D12;line-height:24px;word-break:break-word;';
+    m.style.cssText = 'align-self:stretch;font-family:\'Roboto\',sans-serif;font-size:14px;font-weight:400;color:#141623;line-height:1.43;word-break:break-word;';
     m.textContent = text;
     document.getElementById('chat-messages').appendChild(m);
     _scrollChat();
+  }
+
+  function _addTypingDots() {
+    var dots = document.createElement('div');
+    dots.className = 'chat-dot-pulse';
+    dots.innerHTML = '<span></span><span></span><span></span>';
+    document.getElementById('chat-messages').appendChild(dots);
+    _scrollChat();
+    return dots;
   }
 
   // AI response card with a CTA button (e.g. nudging the user to connect a data source)
@@ -8493,8 +8655,10 @@
   }
 
   function onChatPanelInput(el) {
-    var path = document.getElementById('chat-panel-send').querySelector('path');
-    if (path) path.setAttribute('stroke', el.value.trim() ? '#1063F9' : '#C0C7D1');
+    var btn = document.getElementById('chat-panel-send');
+    var hasText = !!el.value.trim();
+    btn.classList.toggle('is-active', hasText);
+    btn.style.color = hasText ? '#1C5DCD' : '#626C87';
   }
 
   function sendChatPanel() {
@@ -8504,19 +8668,21 @@
     input.value = '';
     onChatPanelInput(input);
     _addUserMsg(text);
+    var dots = _addTypingDots();
     setTimeout(function() {
+      dots.remove();
       _respondToChat(text, 'Let me dig into that for you. Based on your Jun 8–14 data, this touches on a pattern that\'s been consistent over 2–3 weeks — I\'ll pull the specifics now and flag what\'s most actionable.');
     }, 900);
   }
 
-  // Update setInsightQuestion to also activate send icon
+  // Tapping a suggested question sends it immediately, instead of just filling the composer.
   var _origSetInsightQuestion = setInsightQuestion;
   setInsightQuestion = function(inputId, text) {
     var input = document.getElementById(inputId);
     if (!input) return;
     input.value = text;
-    input.focus();
     _updateSendIcon(input);
+    _submitInsightInput(input);
   };
 
 </script>
@@ -8587,26 +8753,37 @@
 </div>
 
 <!-- Chat overlay -->
-<div id="chat-overlay" onclick="closeChatPanel()" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(10,9,27,0.18);z-index:399;opacity:0;pointer-events:none;transition:opacity 0.32s cubic-bezier(0.32,0,0.15,1);"></div>
+<div id="chat-overlay" onclick="closeChatPanel()" style="position:fixed;top:0;left:0;width:100%;height:100%;background:transparent;z-index:399;pointer-events:none;"></div>
 <!-- Chat side panel -->
-<div id="chat-panel" style="position:fixed;right:0;top:0;width:360px;height:100vh;background:#EFF5FF;z-index:400;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.32s cubic-bezier(0.32,0,0.15,1);box-shadow:-4px 0 24px rgba(0,0,0,0.1);">
+<div id="chat-panel" style="position:fixed;right:0;top:0;width:360px;height:100vh;background:#FFFFFF;border-left:1px solid #E2E9F3;z-index:400;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.28s ease;box-shadow:-4px 0 24px rgba(0,0,0,0.1);">
   <!-- Header -->
-  <div style="display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:72px;flex-shrink:0;">
-    <span style="font-family:'Poppins',sans-serif;font-size:20px;font-weight:600;color:#0F1221;">Chat with your insight</span>
-    <button onclick="closeChatPanel()" style="background:#ffffff;border:none;cursor:pointer;padding:6px;border-radius:50%;display:flex;align-items:center;justify-content:center;width:36px;height:36px;flex-shrink:0;">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 6 6 18M6 6l12 12" stroke="#0F1221" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div style="display:flex;align-items:center;gap:8px;padding:8px 16px;border-bottom:1px solid #E2E9F3;flex-shrink:0;">
+    <svg width="40" height="40" viewBox="0 0 49.911 49.911" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+      <path opacity="0.3" d="M27.458 6.99624C33.0788 4.83007 39.2326 8.54962 39.9275 14.5331L40.5633 20.0076C40.6486 20.7418 40.8219 21.4632 41.0795 22.156L43.0147 27.3617C45.12 33.0245 41.2989 39.1475 35.287 39.7448L30.7617 40.1944C29.9606 40.274 29.1734 40.4582 28.4201 40.7424L22.3549 43.0302C16.7525 45.1434 10.654 41.4371 9.94945 35.491L9.32727 30.2397C9.24365 29.534 9.07869 28.8403 8.83568 28.1724L6.77791 22.5175C4.71829 16.8574 8.55233 10.7752 14.5472 10.1924L19.4719 9.71368C20.3016 9.63302 21.1166 9.44015 21.8945 9.14036L27.458 6.99624Z" fill="#1769FF"/>
+      <path opacity="0.4" d="M38.7818 13.2254C44.4186 15.3494 46.5361 22.2212 43.0726 27.1495L39.9036 31.6586C39.4786 32.2634 39.1279 32.9171 38.859 33.6057L36.8389 38.779C34.6413 44.4066 27.7143 46.4336 22.8297 42.8783L19.153 40.2021C18.5021 39.7283 17.7919 39.3419 17.0406 39.0527L10.9911 36.7236C5.4033 34.5722 3.31819 27.7472 6.74971 22.8403L9.78028 18.5068C10.1876 17.9244 10.5261 17.2969 10.7892 16.6367L13.0169 11.0465C15.2467 5.45131 22.1562 3.46342 27.0185 7.01829L31.0126 9.9385C31.6856 10.4305 32.4223 10.829 33.2024 11.1229L38.7818 13.2254Z" fill="#1769FF"/>
+      <circle cx="24.945" cy="24.9527" r="7.68055" fill="white"/>
+      <path d="M24.9943 10.3649C16.9252 10.3649 10.4013 16.7171 10.4013 24.9579C10.4013 33.233 16.9252 39.551 24.9943 39.551C33.0634 39.551 39.5873 33.1987 39.5873 24.9579C39.6216 16.7171 33.0634 10.3649 24.9943 10.3649ZM24.9943 31.9969C21.1143 31.9969 17.9897 28.941 17.9897 24.9923C17.9897 21.0092 21.1143 17.9876 24.9943 17.9876C28.8743 17.9533 32.0333 21.0092 32.0333 24.9579C32.0333 28.941 28.8743 31.9969 24.9943 31.9969Z" fill="#090D12"/>
+    </svg>
+    <span style="flex:1;min-width:0;font-family:'Poppins',sans-serif;font-size:16px;font-weight:600;color:#141623;">SpotOn AI</span>
+    <button aria-label="History" style="width:24px;height:24px;border:none;background:none;padding:3px;color:#0F1221;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:96px;flex-shrink:0;">
+      <svg width="18" height="18" viewBox="0 0 15 15" fill="none"><path d="M7.09 4.57v3l1.12 1.12M14.22 6.82c-.17-1.65-.94-3.18-2.16-4.3-1.23-1.12-2.82-1.75-4.48-1.77-1.66-.02-3.27.57-4.52 1.66-1.24 1.09-2.05 2.6-2.25 4.25-.2 1.65.2 3.31 1.14 4.68.94 1.36 2.35 2.33 3.97 2.72 1.61.39 3.31.17 4.77-.6 1.46-.78 2.58-2.08 3.15-3.63M14.22 13.57V9.82h-3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button onclick="closeChatPanel()" aria-label="Close" style="width:24px;height:24px;border:none;background:none;padding:3px;color:#0F1221;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:96px;flex-shrink:0;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
   </div>
   <!-- Messages area -->
-  <div id="chat-messages" style="flex:1;overflow-y:auto;padding:8px 24px 16px;display:flex;flex-direction:column;gap:12px;"></div>
+  <div id="chat-messages" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;"></div>
   <!-- Bottom input -->
-  <div style="padding:16px 24px 24px;flex-shrink:0;">
-    <div style="display:flex;align-items:center;background:#ffffff;border-radius:96px;padding:10px 16px;gap:8px;border:1px solid #DCE2EA;">
-      <input id="chat-panel-input" type="text" placeholder="Ask anything..." oninput="onChatPanelInput(this)" onkeydown="if(event.key==='Enter')sendChatPanel()" style="flex:1;border:none;outline:none;font-family:'Roboto',sans-serif;font-size:16px;color:#141623;background:transparent;"/>
-      <button id="chat-panel-send" onclick="sendChatPanel()" style="background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;flex-shrink:0;">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="#C0C7D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div style="padding:12px 16px;display:flex;flex-direction:column;align-items:center;gap:24px;flex-shrink:0;">
+    <div id="chat-panel-input-wrap" style="width:100%;display:flex;align-items:center;justify-content:space-between;background:#ffffff;border-radius:96px;height:44px;box-sizing:border-box;padding:10px 16px;border:1px solid #9EB4D4;">
+      <input id="chat-panel-input" type="text" placeholder="Ask anything..." oninput="onChatPanelInput(this)" onkeydown="if(event.key==='Enter')sendChatPanel()" style="flex:1;border:none;outline:none;font-family:'Roboto',sans-serif;font-size:14px;color:#141623;background:transparent;"/>
+      <button id="chat-panel-send" class="insight-send-btn" onclick="sendChatPanel()">
+        <svg class="send-icon-outline" viewBox="0 0 19.8209 19.8209" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.07087 11.75L19.0709 0.750021M19.0709 0.750021L1.07087 7.25002C0.97513 7.2939 0.893998 7.36434 0.837117 7.45297C0.780237 7.5416 0.75 7.64471 0.75 7.75002C0.75 7.85534 0.780237 7.95844 0.837117 8.04707C0.893998 8.13571 0.97513 8.20615 1.07087 8.25002L8.07087 11.75L11.5709 18.75C11.6147 18.8458 11.6852 18.9269 11.7738 18.9838C11.8625 19.0407 11.9656 19.0709 12.0709 19.0709C12.1762 19.0709 12.2793 19.0407 12.3679 18.9838C12.4566 18.9269 12.527 18.8458 12.5709 18.75L19.0709 0.750021Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="send-icon-filled" viewBox="0 0 19.8209 19.8209" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.7763 1.00475C19.8751 0.731253 19.8068 0.425309 19.6012 0.219691C19.3956 0.0140729 19.0896 -0.0541588 18.8161 0.0446058L0.816138 6.54461C0.796581 6.55167 0.777326 6.55954 0.758423 6.5682C0.532124 6.67191 0.340358 6.8384 0.205913 7.0479C0.0714688 7.2574 0 7.50109 0 7.75002C0 7.99895 0.0714688 8.24264 0.205913 8.45214C0.33758 8.65731 0.524223 8.82124 0.744438 8.92533L6.56898 11.8376L15.3234 3.08317C15.7139 2.69265 16.3471 2.69265 16.7376 3.08317C17.1282 3.4737 17.1282 4.10686 16.7376 4.49739L7.98323 13.2518L10.8956 19.0765C10.9997 19.2967 11.1636 19.4833 11.3687 19.615C11.5782 19.7494 11.8219 19.8209 12.0709 19.8209C12.3198 19.8209 12.5635 19.7494 12.773 19.615C12.9825 19.4805 13.149 19.2888 13.2527 19.0625C13.2614 19.0436 13.2692 19.0243 13.2763 19.0048L19.7763 1.00475Z" fill="currentColor"/></svg>
       </button>
     </div>
+    <div style="font-family:'Roboto',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.2px;color:#37456C;text-align:center;line-height:1.33;">AI-generated responses may contain errors.<br>Verify before acting on them.</div>
   </div>
 </div>
 <!-- Shared detail chart tooltip (outside app-root so it floats above everything) -->
@@ -8806,6 +8983,53 @@
 
 </div>
 
+<!-- ── "Mark as done" action-complete modal (shown over the page with an overlay) ── -->
+<div id="gd-complete-modal-overlay" onclick="if(event.target===this)closeGdCompleteModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:10000;align-items:center;justify-content:center;">
+  <div id="gd-complete-modal" style="background:#fff;border-radius:24px;width:520px;box-shadow:0 6px 10px rgba(0,0,0,0.16),0 2px 4px rgba(0,0,0,0.1);display:flex;flex-direction:column;">
+    <!-- Header -->
+    <div style="display:flex;align-items:center;gap:16px;padding:16px 24px;min-height:72px;">
+      <p style="flex:1;font-family:'Poppins',sans-serif;font-size:24px;font-weight:600;color:#0A091B;margin:0;line-height:32px;">You marked this action complete</p>
+      <button onclick="closeGdCompleteModal()" style="display:flex;align-items:center;justify-content:center;padding:8px;border-radius:96px;border:none;background:transparent;cursor:pointer;color:#0A091B;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    <!-- Body -->
+    <div style="display:flex;flex-direction:column;gap:24px;">
+      <div style="display:flex;flex-direction:column;gap:12px;padding:0 24px;">
+        <p style="font-family:'Poppins',sans-serif;font-size:16px;font-weight:400;color:#0A091B;margin:0;line-height:24px;">Tell us why this action was done. Your feedback helps us improve recommended actions for you over time.</p>
+        <div style="display:flex;flex-direction:column;">
+          <label style="display:flex;align-items:flex-start;gap:8px;padding:12px 0;cursor:pointer;">
+            <input type="radio" name="gd-complete-reason" checked style="width:18px;height:18px;margin-top:3px;flex-shrink:0;cursor:pointer;accent-color:#1063F9;">
+            <span style="font-family:'Poppins',sans-serif;font-size:16px;color:#0A091B;line-height:24px;">I completed this action</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:8px;padding:12px 0;cursor:pointer;">
+            <input type="radio" name="gd-complete-reason" style="width:18px;height:18px;margin-top:3px;flex-shrink:0;cursor:pointer;accent-color:#1063F9;">
+            <span style="font-family:'Poppins',sans-serif;font-size:16px;color:#0A091B;line-height:24px;">I had already implemented this</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:8px;padding:12px 0;cursor:pointer;">
+            <input type="radio" name="gd-complete-reason" style="width:18px;height:18px;margin-top:3px;flex-shrink:0;cursor:pointer;accent-color:#1063F9;">
+            <span style="font-family:'Poppins',sans-serif;font-size:16px;color:#0A091B;line-height:24px;">I addressed this in a different way</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:8px;padding:12px 0;cursor:pointer;">
+            <input type="radio" name="gd-complete-reason" style="width:18px;height:18px;margin-top:3px;flex-shrink:0;cursor:pointer;accent-color:#1063F9;">
+            <span style="font-family:'Poppins',sans-serif;font-size:16px;color:#0A091B;line-height:24px;">This does not apply to my business</span>
+          </label>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:4px;padding:0 24px;">
+        <label style="font-family:'Poppins',sans-serif;font-size:14px;color:#0A091B;line-height:20px;">Add a note</label>
+        <textarea id="gd-complete-note" style="width:100%;height:68px;border:1px solid #637CA8;border-radius:8px;padding:8px 12px;font-family:'Poppins',sans-serif;font-size:14px;color:#0A091B;resize:none;box-sizing:border-box;" placeholder=""></textarea>
+        <span style="font-family:'Poppins',sans-serif;font-size:14px;color:#37456C;line-height:20px;">Optional</span>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div style="display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:24px;">
+      <button onclick="closeGdCompleteModal()" style="background:#F4F7FA;border:none;border-radius:96px;padding:12px 24px;font-family:'Poppins',sans-serif;font-size:16px;font-weight:500;color:#0A091B;cursor:pointer;">Skip</button>
+      <button onclick="submitGdCompleteModal()" style="background:#2D71E8;border:none;border-radius:96px;padding:12px 24px;font-family:'Poppins',sans-serif;font-size:16px;font-weight:500;color:#fff;cursor:pointer;">Submit</button>
+    </div>
+  </div>
+</div>
+
 <script>
 var feedbackReturnsToSummary = false;
 var feedbackReturnsToGlanceDetail = false;
@@ -8849,6 +9073,35 @@ function openAgsFeedbackModal(type) {
 }
 function openGdFeedbackModal(type) {
   openFeedbackModal(type, 'glance-detail');
+}
+// ── "Mark as done" toggling on May at a glance recommended-action tiles ──
+function toggleGdTileDone(btn) {
+  var nowDone = !btn.classList.contains('is-done');
+  btn.classList.toggle('is-done', nowDone);
+  var card = btn.closest('.gd-main-card');
+  if (card) {
+    var buttons = card.querySelectorAll('.gd-mark-done-btn');
+    var doneCount = card.querySelectorAll('.gd-mark-done-btn.is-done').length;
+    var tag = card.querySelector('[data-gd-status-tag]');
+    if (tag) {
+      tag.textContent = doneCount + '/' + buttons.length + ' done';
+      tag.classList.toggle('is-done', doneCount === buttons.length && buttons.length > 0);
+    }
+  }
+  // Only prompt for feedback when the action is being marked complete, not when un-marking.
+  if (nowDone) openGdCompleteModal();
+}
+function openGdCompleteModal() {
+  document.querySelectorAll('input[name="gd-complete-reason"]').forEach(function(r, i) { r.checked = (i === 0); });
+  document.getElementById('gd-complete-note').value = '';
+  document.getElementById('gd-complete-modal-overlay').style.display = 'flex';
+}
+function closeGdCompleteModal() {
+  document.getElementById('gd-complete-modal-overlay').style.display = 'none';
+}
+function submitGdCompleteModal() {
+  closeGdCompleteModal();
+  showToast();
 }
 function closeFeedbackModal() {
   document.getElementById('feedback-modal-overlay').style.display = 'none';
