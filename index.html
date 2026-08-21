@@ -7606,6 +7606,12 @@
     // Hold the chosen KPI + config, then show the branded login modal for the
     // selected software — the actual connection is finalized in _completeConnectLogin().
     _pendingConnectKpi = { type: 'accounting', kpiValue: kpiValue, periods: periods, multiloc: multiloc };
+
+    // Reveal the "Manage connections" hotglue page underneath, then show the
+    // branded login modal on top of it (the login modal already sits at a
+    // higher z-index than the hotglue overlay).
+    _refreshConnectOnboardingButtons();
+    document.getElementById('connect-onboarding-overlay').style.display = 'block';
     openConnectLoginIframe(softwareInput.value);
   }
 
